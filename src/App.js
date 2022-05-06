@@ -1,8 +1,9 @@
 import React/* , { useEffect, useState } */ from 'react'
-import { useRecoilValue } from 'recoil';
-import { stepState } from 'Store/GlobalStore';
+// import { useRecoilValue } from 'recoil';
+// import { stepState } from 'Store/GlobalStore';
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 
-import { Advertising } from 'Pages';
+import { ClientPage } from 'Pages';
 
 // import logo from './logo.svg';
 // import { FullScreen, useFullScreenHandle } from "react-full-screen";
@@ -19,16 +20,19 @@ function App() {
 	// 	// else if (document.documentElement.webkitRequestFullScreen) document.querySelector("#container").webkitRequestFullScreen();
 	// }, []);
 
-	const step = useRecoilValue(stepState);
-
-	console.log(step)
+	// recoil
+	// const step = useRecoilValue(stepState);
 
 	return (
 		<div className="App">
-			{
-				step === 'ad' &&
-				<Advertising />
-			}
+			<Router>
+				<Routes>
+					<Route path="/admin" element={<ClientPage />} />
+					<Route path="/master" element={<ClientPage />} />
+					<Route path="/" element={<ClientPage />} />
+				</Routes>
+			</Router>
+
 
 			{/* <button id='idgogo' onClick={handle.enter}>
 				Enter fullscreen

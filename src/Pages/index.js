@@ -1,5 +1,5 @@
-import Advertising from './Advertising/Advertising.jsx';
+import ClientPage from './Client/ClientPage';
 
 export {
-    Advertising
+    ClientPage
 };
