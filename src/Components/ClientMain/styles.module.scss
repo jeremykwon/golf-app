@@ -1,4 +1,101 @@
 .main-container {
     width: 100vw;
     height: 100vh;
+    // background-color: #16D4F0;
+    // background-color: #1976D2;
+    background-color: #282C34;
+    
+    padding-top: 30px;
+    overflow-y: overlay;
 }
+
+.test {
+    background-color: inherit;
+    outline: none;
+    border: none;
+    color: #fff;
+}
+
+// 홀인원
+.hole-container {
+    // background-color: gray;
+    
+    width: calc(100% - 50px);
+    height: 300px;
+    border-radius: 15px;
+    // padding: 20px;
+    font-size: 80px;
+    font-family: 'Staatliches', cursive !important;
+    text-decoration: underline;
+    color: #fff;
+    
+    position: absolute;
+    margin: 0 auto;
+    left: 0;
+    right: 0;
+}
+
+// 주문
+.orderbook-container {
+    position: sticky;
+    z-index: 1;
+    background-color: #fff;
+    width: calc(100% - 50px);
+    height: 95%;
+    border-radius: 15px;
+    margin: auto;
+    margin-top: 320px;
+    padding: 20px 30px 120px 30px;
+    box-shadow: rgba(0, 0, 0, 0.25) 0px 54px 55px, rgba(0, 0, 0, 0.12) 0px -12px 30px, rgba(0, 0, 0, 0.12) 0px 4px 6px, rgba(0, 0, 0, 0.17) 0px 12px 13px, rgba(0, 0, 0, 0.09) 0px -3px 5px;
+
+    .orderbook-header {
+        font-size: 30px;
+        font-weight: bold;
+        display: flex;
+        justify-content: space-between;
+        padding-bottom: 30px;
+        border-bottom: 1px lightgray solid;
+        margin-bottom: 20px;
+
+        .submit-btn {
+            width: 170px;
+        }
+    }
+
+    .orderbook-order-wrap {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+
+        .orderbook-order-box {
+            width: 200px;
+            height: 200px;
+            box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 12px;
+            border-radius: 15px;
+            margin-left: 20px;
+            margin-top: 20px;
+            padding: 15px;
+            font-size: 20px;
+            font-weight: bold;
+            text-align: center;
+            align-items: center;
+            justify-content: center;
+            display: flex;
+
+            cursor: pointer;
+        }
+    }
+}
+
+.footer-container {
+    width: 100%;
+    height: 100px;
+    background-color: #fff;
+    position: fixed;
+    z-index: 1;
+    bottom: 0;
+    box-shadow: rgba(0, 0, 0, 0.1) 0px 0px 12px;
+}
+
+// box shadow 참고
+// https://getcssscan.com/css-box-shadow-examples

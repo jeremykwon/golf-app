@@ -1,9 +1,10 @@
 import React/* , { useEffect, useState } */ from 'react'
+
 // import { useRecoilValue } from 'recoil';
 // import { stepState } from 'Store/GlobalStore';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 
-import { ClientPage } from 'Pages';
+import { ClientPage, LoginPage, NotFoundPage } from 'Pages';
 
 // import logo from './logo.svg';
 // import { FullScreen, useFullScreenHandle } from "react-full-screen";
@@ -27,9 +28,11 @@ function App() {
 		<div className="App">
 			<Router>
 				<Routes>
+					<Route path="*" element={<NotFoundPage />} />
 					<Route path="/admin" element={<ClientPage />} />
 					<Route path="/master" element={<ClientPage />} />
 					<Route path="/" element={<ClientPage />} />
+					<Route path="/signin" element={<LoginPage />} />
 				</Routes>
 			</Router>
 
