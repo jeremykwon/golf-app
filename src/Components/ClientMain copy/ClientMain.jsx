@@ -121,13 +121,12 @@ const HoleInOne = () => {
 
     return (
         <div className={cx('hole-container')}>
-            <div className={cx('hole-wrap')}>
-                <h2 className={cx('hole-cost-title')}>HOLE-IN-ONE <span>POT</span></h2>
-                <div className={cx('hole-cost-wrap')}>
-                    <p className={cx('hole-cost-number')} id="counter1"></p>
-                    <pre className={cx('hole-cost-won')}> 원</pre>
-                </div>
+            <h2 className={cx('hole-cost-title')}>HOLE-IN-ONE <span>POT</span></h2>
+            <div className={cx('hole-cost-wrap')}>
+                <p className={cx('hole-cost-number')} id="counter1"></p>
+                <pre className={cx('hole-cost-won')}> 원</pre>
             </div>
+            
         </div>
     );
 };
@@ -136,39 +135,9 @@ const OrderBook = () => {
     const order_list = [
         '물을 가져다 주세요', 
         '고장났어요 빨리 와주세요!!!',
-        '라면을끓일때에는 빨간맛으로 부탁드립니다.1111. fdskjh11111111dsfds111111111',
-        '나는 지금 배가 고프다',
-        '똥개 똥구멍!',
-        '하지만 말야',
-        'lorem lorem lorem lorem',
-        '물을 가져다 주세요', 
-        '고장났어요 빨리 와주세요!!!',
         '라면을끓일때에는 빨간맛으로 부탁드립니다.',
         '나는 지금 배가 고프다',
-        '똥개 똥구멍!',
-        '하지만 말야',
-        'lorem lorem lorem lorem',
-        '물을 가져다 주세요', 
-        '고장났어요 빨리 와주세요!!!',
-        '라면을끓일때에는 빨간맛으로 부탁드립니다.',
-        '나는 지금 배가 고프다',
-        '똥개 똥구멍!',
-        '하지만 말야',
-        'lorem lorem lorem lorem',
-        '물을 가져다 주세요', 
-        '고장났어요 빨리 와주세요!!!',
-        '라면을끓일때에는 빨간맛으로 부탁드립니다.',
-        '나는 지금 배가 고프다',
-        '똥개 똥구멍!',
-        '하지만 말야',
-        'lorem lorem lorem lorem',
-        '물을 가져다 주세요', 
-        '고장났어요 빨리 와주세요!!!',
-        '라면을끓일때에는 빨간맛으로 부탁드립니다.',
-        '나는 지금 배가 고프다',
-        '똥개 똥구멍!',
-        '하지만 말야',
-        'lorem lorem lorem lorem',
+        '똥개 똥구멍!'
     ];
 
     const OrderBox = ({ order }) => {
@@ -182,7 +151,7 @@ const OrderBook = () => {
     return (
         <div className={cx('orderbook-container')}>
             <div className={cx('orderbook-header')}>
-                <h2>주문하실 메뉴를 선택해주세요</h2>
+                주문하실 메뉴를 선택해주세요
 
                 <Button className={cx('submit-btn')} variant="contained">주문하기</Button>
             </div>

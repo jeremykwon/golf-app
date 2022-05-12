@@ -17,12 +17,24 @@ const LoginPage = () => {
             <div className={cx('login-wrap')}>
                 <div className={cx('input-wrap')}>
                     <AccountCircle sx={{ color: 'action.active', mr: 1, my: 0.5 }} />
-                    <TextField fullWidth  id="input-with-sx" label="아이디" variant="standard" />
+                    <TextField 
+                        fullWidth
+                        id="input-with-sx"
+                        label="아이디"
+                        variant="standard"
+                        type="search"
+                        />
                 </div>
                 
                 <div className={cx('input-wrap')}>
                     <KeyIcon sx={{ color: 'action.active', mr: 1, my: 0.5 }} />
-                    <TextField fullWidth id="input-with-sx" label="비밀번호" variant="standard" />
+                    <TextField 
+                        fullWidth
+                        id="input-with-sx"
+                        label="비밀번호"
+                        variant="standard"
+                        type="search"
+                    />
                 </div>
                 
                 <p className={cx('error-msg')}>{ isError && '아이디와 비밀번호를 확인하세요'}</p>

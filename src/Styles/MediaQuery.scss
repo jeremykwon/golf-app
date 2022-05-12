@@ -1,0 +1,19 @@
+// 가로로 눞힌 기준
+// $breakpoint-mobile: 800px;
+// $breakpoint-tablet: 1024px;
+// $breakpoint-desktop: 1200px;
+$breakpoint-mobile: 335px;
+$breakpoint-tablet: 758px;
+$breakpoint-desktop: 1024px;
+
+@mixin mobile {
+  @media (min-height: #{$breakpoint-mobile}) and (max-height: #{$breakpoint-tablet - 1px}) {
+    @content;
+  }
+}
+
+@mixin tablet {
+  @media (min-height: #{$breakpoint-tablet}) and (max-height: #{$breakpoint-desktop - 1px}) {
+    @content;
+  }
+}

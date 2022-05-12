@@ -35,8 +35,10 @@ const Advertising = ({ isAdView, setIsAdView }) => {
 	// 이미지중 광고 안보이게 되면 남은 시간 만큼 다시 이미지 보여지도록
 	// 영상의 경우 처음부터 다시시작됨
 	useEffect(() => {
+		
 		if (currentAd.type === 'image') {
 			let interval = setInterval(() => {
+				console.log(image_view_time)
 				if (!isAdView) clearInterval(interval);
 
 				if (image_view_time < MAX_IMAGE_VIEW_TIME) image_view_time += 1 ;
@@ -50,7 +52,7 @@ const Advertising = ({ isAdView, setIsAdView }) => {
 		<>
 			{
 				isAdView &&
-					<div 
+					<div
 						className={cx('ad-wrap')}
 						onClick={() => {
 							setIsAdView(!isAdView);

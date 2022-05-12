@@ -4,7 +4,7 @@ import React/* , { useEffect, useState } */ from 'react'
 // import { stepState } from 'Store/GlobalStore';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 
-import { ClientPage, LoginPage, NotFoundPage } from 'Pages';
+import { ClientPage, LoginPage, NotFoundPage, AdminPage, Test } from 'Pages';
 
 // import logo from './logo.svg';
 // import { FullScreen, useFullScreenHandle } from "react-full-screen";
@@ -29,10 +29,11 @@ function App() {
 			<Router>
 				<Routes>
 					<Route path="*" element={<NotFoundPage />} />
-					<Route path="/admin" element={<ClientPage />} />
+					<Route path="/admin" element={<AdminPage />} />
 					<Route path="/master" element={<ClientPage />} />
 					<Route path="/" element={<ClientPage />} />
 					<Route path="/signin" element={<LoginPage />} />
+					<Route path="/test" element={<Test />} />
 				</Routes>
 			</Router>
 

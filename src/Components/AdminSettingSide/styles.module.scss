@@ -1,0 +1,29 @@
+.setting-side-container {
+    flex: 1;
+    padding: 30px;
+    overflow: overlay;
+
+    .setting-side-content-wrap {
+        margin-bottom: 70px;
+
+        .order-add-wrap {
+            width: 500px;
+            margin-top: 10px;
+            display: flex;
+
+            .order-save-btn {
+                height: 40px;
+                margin-left: 10px;
+            }
+        }
+    }
+
+    &::-webkit-scrollbar {
+        width: 1vw;
+    }
+    
+    &::-webkit-scrollbar-thumb {
+        background-color: rgba(0, 0, 0, 0);
+        border-radius: 100px;
+    }
+}
