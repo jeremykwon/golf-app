@@ -1,5 +1,5 @@
 .table-container {
-    width: 500px;
+    width: 100%;
     height: fit-content;
     max-height: 400px;
     border-radius: 7px;
@@ -44,24 +44,32 @@
         }
 
         .content-btn-wrap {
-            width: 110px;
+            // width: 110px;
+            margin-right: 10px;
             display: flex;
             justify-content: space-around;
         }
     }
 
+    
+
     // 스크롤바 디자인
     &::-webkit-scrollbar {
-        width: 10px;
+        width: 5px;
     }
       
-    &::-webkit-scrollbar-track {
-        border-radius: 100px;
-    }
+    // &::-webkit-scrollbar-track {
+    //     border-radius: 100px;
+    // }
     
     &::-webkit-scrollbar-thumb {
         border-radius: 100px;
-        background-color: #1976d2;
+        background-color: #1565C0;
         box-shadow: inset 2px 2px 5px 0 rgba(#fff, 0.5);
+    }
+
+    .selected {
+        background-color: #282C34;
+        color: #fff;
     }
 }

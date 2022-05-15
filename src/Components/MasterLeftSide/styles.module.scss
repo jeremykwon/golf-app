@@ -1,0 +1,37 @@
+.master-left-side-container {
+    width: 50%;
+    padding: 30px;
+    overflow: overlay;
+    padding-right: 100px;
+
+    .content-wrap {
+        margin-bottom: 50px;
+
+        .company-text-field {
+            margin-bottom: 10px;
+        }
+
+        .company-save-btn {
+            width: 100%;
+            margin-bottom: 20px;
+            margin-top: 10px;
+        }
+
+        .file-upload-wrap {
+            display: flex;
+
+            .file-name-field {
+                flex: 1;
+            }
+            
+            .upload-btn {
+                width: 120px;
+                margin-left: 10px;
+            }
+        }
+
+        .upload-input {
+            display: none;
+        }
+    }
+}

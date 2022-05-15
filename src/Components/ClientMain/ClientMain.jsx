@@ -3,7 +3,7 @@ import React, { useCallback, useEffect, useState } from 'react';
 import classNames from 'classnames/bind';
 import styles from './styles.module.scss';
 
-import { Button, Modal, Box } from '@mui/material';
+import { Button, Modal } from '@mui/material';
 import QuestionAnswerIcon from '@mui/icons-material/QuestionAnswer';
 import LogoutIcon from '@mui/icons-material/Logout';
 
@@ -14,7 +14,6 @@ let deactivate_count = 1;
 
 const ClientMain = ({ setIsAdView, isAdView }) => {
     const [flag, setFalg] = useState(false);
-
     const [isQuestionModal, setIsQuestionModal] = useState(false);
     
     const active = useCallback(() => {
@@ -79,12 +78,11 @@ const ClientMain = ({ setIsAdView, isAdView }) => {
                 >   
                     <HoleInOne />
                     <OrderBook />
+                    <Footer
+                        active={active}
+                        setIsQuestionModal={setIsQuestionModal} 
+                    />
             </div>
-
-            <Footer
-                active={active}
-                setIsQuestionModal={setIsQuestionModal} 
-                />
         </>
     );
 };

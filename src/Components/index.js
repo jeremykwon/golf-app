@@ -1,10 +1,20 @@
+// common
+import Table from './Table/Table';
+
+// client
 import Advertising from './Advertising/Advertising';
 import ClientMain from './ClientMain/ClientMain';
-import Table from './Table/Table';
+
+// admin
 import AdminJobList from './AdminJobList/AdminJobList';
 import AdminSettingSide from './AdminSettingSide/AdminSettingSide';
 import AdminTitle from './AdminTitle/AdminTItle';
 import AdminHoleMoney from './AdminHoleMoney/AdminHoleMoney';
+
+// master
+import MasterLeftSide from './MasterLeftSide/MasterLeftSide';
+import MasterRightSide from './MasterRightSide/MasterRightSide';
+
 
 export {
     Advertising,
@@ -13,5 +23,7 @@ export {
     AdminJobList,
     Table,
     AdminTitle,
-    AdminHoleMoney
+    AdminHoleMoney,
+    MasterLeftSide,
+    MasterRightSide
 };

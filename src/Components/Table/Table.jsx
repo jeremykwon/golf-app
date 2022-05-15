@@ -7,23 +7,46 @@ import { Button } from '@mui/material';
 import IconButton from '@mui/material/IconButton';
 import ChangeCircleIcon from '@mui/icons-material/ChangeCircle';
 import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
+import DriveFileMoveRoundedIcon from '@mui/icons-material/DriveFileMoveRounded';
 
 const cx = classNames.bind(styles);
 
-let tmpDatas = [1,2,3,4,5,6,7,8,9,10,11];
 
-const Table = ({ datas }) => {
+
+const Table = ({ 
+    datas, 
+    clickHandler=()=> {}, 
+    modifyHandler, 
+    moveHandler,
+    selectedIndex
+}) => {
 
     return (
         <div className={cx('table-container')}>
             {
-                tmpDatas.map((col, index) => <TableContent key={index} />)
+                datas.map((data, index) => 
+                    <TableContent
+                        index={index}
+                        data={data}
+                        key={index}
+                        clickHandler={clickHandler}
+                        modifyHandler={modifyHandler}
+                        moveHandler={moveHandler}
+                        selectedIndex={selectedIndex}
+                        />)
             }
         </div>
     );
 };
 
-const TableContent = () => {
+const TableContent = ({ 
+    data,
+    clickHandler,
+    index,
+    modifyHandler,
+    moveHandler,
+    selectedIndex
+}) => {
     const [isModify, setIsModify] = useState(false);
     const inputRef = useRef();
 
@@ -35,31 +58,46 @@ const TableContent = () => {
         if (isModify) inputRef.current.focus();
     }, [isModify]);
 
+    console.log('selectedIndex---', selectedIndex)
+    console.log('index---', index)
+
     return (
-        <div className={cx('content-container')}>
+        <div 
+            className={cx('content-container', {selected: selectedIndex === index} )}
+            onClick={() => { clickHandler(index) }}
+            >
             <input
                 ref={inputRef}
                 className={cx('content-text')}
-                value='This is Text!This is Text!This is Text!This is Text!This is Text!This is Text!'
+                value={data.title}
                 disabled={!isModify}
-                title={'This is Text!This is Text!This is Text!This is Text!This is Text!This is Text!'}
+                title={data.title}
                 />
 
-            
-
             <div className={cx('content-btn-wrap')}>
-                { 
-                    isModify ? 
-                        <Button onClick={modifyModeOn} variant="contained">적용</Button> 
-                    :
-                        <IconButton 
-                            color="primary"
-                            aria-label="upload picture"
-                            component="span"
-                            onClick={modifyModeOn}
-                            >
-                            <ChangeCircleIcon />
+                {
+                    moveHandler &&
+                        <IconButton color="primary" aria-label="upload picture" component="span">
+                            <DriveFileMoveRoundedIcon />
                         </IconButton>
+                }
+
+                { 
+                    modifyHandler &&
+                        (
+                            isModify ? 
+                            <Button onClick={modifyModeOn} variant="contained">적용</Button> 
+                        :
+                            <IconButton 
+                                color="primary"
+                                aria-label="upload picture"
+                                component="span"
+                                onClick={modifyModeOn}
+                                >
+                                <ChangeCircleIcon />
+                            </IconButton>
+                        )
+                        
                 }
 
                 <IconButton color="primary" aria-label="upload picture" component="span">
