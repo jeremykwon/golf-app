@@ -3,9 +3,10 @@ import React, { useCallback, useEffect, useState } from 'react';
 import classNames from 'classnames/bind';
 import styles from './styles.module.scss';
 
-import { Button, Modal, Box } from '@mui/material';
+import { Button, Modal } from '@mui/material';
 import QuestionAnswerIcon from '@mui/icons-material/QuestionAnswer';
 import LogoutIcon from '@mui/icons-material/Logout';
+import Drawer from '@mui/material/Drawer';
 
 const cx = classNames.bind(styles);
 
@@ -14,7 +15,6 @@ let deactivate_count = 1;
 
 const ClientMain = ({ setIsAdView, isAdView }) => {
     const [flag, setFalg] = useState(false);
-
     const [isQuestionModal, setIsQuestionModal] = useState(false);
     
     const active = useCallback(() => {
@@ -38,6 +38,19 @@ const ClientMain = ({ setIsAdView, isAdView }) => {
 
     return (
         <>
+            <Drawer
+                sx={{
+                width: 240,
+                flexShrink: 0,
+                '& .MuiDrawer-paper': {
+                    width: 240,
+                    boxSizing: 'border-box',
+                },
+                }}
+                variant="persistent"
+                anchor="left"
+                open={true}
+            >1111</Drawer>
             <Modal
                 onClick={active}
                 onTouchEnd={active}
@@ -79,12 +92,11 @@ const ClientMain = ({ setIsAdView, isAdView }) => {
                 >   
                     <HoleInOne />
                     <OrderBook />
+                    <Footer
+                        active={active}
+                        setIsQuestionModal={setIsQuestionModal} 
+                    />
             </div>
-
-            <Footer
-                active={active}
-                setIsQuestionModal={setIsQuestionModal} 
-                />
         </>
     );
 };
@@ -121,12 +133,13 @@ const HoleInOne = () => {
 
     return (
         <div className={cx('hole-container')}>
-            <h2 className={cx('hole-cost-title')}>HOLE-IN-ONE <span>POT</span></h2>
-            <div className={cx('hole-cost-wrap')}>
-                <p className={cx('hole-cost-number')} id="counter1"></p>
-                <pre className={cx('hole-cost-won')}> 원</pre>
+            <div className={cx('hole-wrap')}>
+                <h2 className={cx('hole-cost-title')}>HOLE-IN-ONE <span>POT</span></h2>
+                <div className={cx('hole-cost-wrap')}>
+                    <p className={cx('hole-cost-number')} id="counter1"></p>
+                    <pre className={cx('hole-cost-won')}> 원</pre>
+                </div>
             </div>
-            
         </div>
     );
 };
@@ -149,7 +162,7 @@ const OrderBook = () => {
         '맥주 주세요',
         '소주요',
         '과자 주세요',
-        '한 번 와주세요',
+        '한 번 와주세요'
     ];
 
     const OrderBox = ({ order }) => {
@@ -163,7 +176,7 @@ const OrderBook = () => {
     return (
         <div className={cx('orderbook-container')}>
             <div className={cx('orderbook-header')}>
-                주문하실 메뉴를 선택해주세요
+                <h2>주문하실 메뉴를 선택해주세요</h2>
 
                 <Button className={cx('submit-btn')} variant="contained">주문하기</Button>
             </div>
