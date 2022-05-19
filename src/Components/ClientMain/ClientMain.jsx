@@ -6,6 +6,7 @@ import styles from './styles.module.scss';
 import { Button, Modal } from '@mui/material';
 import QuestionAnswerIcon from '@mui/icons-material/QuestionAnswer';
 import LogoutIcon from '@mui/icons-material/Logout';
+import Drawer from '@mui/material/Drawer';
 
 const cx = classNames.bind(styles);
 
@@ -37,6 +38,19 @@ const ClientMain = ({ setIsAdView, isAdView }) => {
 
     return (
         <>
+            <Drawer
+                sx={{
+                width: 240,
+                flexShrink: 0,
+                '& .MuiDrawer-paper': {
+                    width: 240,
+                    boxSizing: 'border-box',
+                },
+                }}
+                variant="persistent"
+                anchor="left"
+                open={true}
+            >1111</Drawer>
             <Modal
                 onClick={active}
                 onTouchEnd={active}
@@ -132,41 +146,23 @@ const HoleInOne = () => {
 
 const OrderBook = () => {
     const order_list = [
-        '물을 가져다 주세요', 
-        '고장났어요 빨리 와주세요!!!',
-        '라면을끓일때에는 빨간맛으로 부탁드립니다.1111. fdskjh11111111dsfds111111111',
-        '나는 지금 배가 고프다',
-        '똥개 똥구멍!',
-        '하지만 말야',
-        'lorem lorem lorem lorem',
-        '물을 가져다 주세요', 
-        '고장났어요 빨리 와주세요!!!',
-        '라면을끓일때에는 빨간맛으로 부탁드립니다.',
-        '나는 지금 배가 고프다',
-        '똥개 똥구멍!',
-        '하지만 말야',
-        'lorem lorem lorem lorem',
-        '물을 가져다 주세요', 
-        '고장났어요 빨리 와주세요!!!',
-        '라면을끓일때에는 빨간맛으로 부탁드립니다.',
-        '나는 지금 배가 고프다',
-        '똥개 똥구멍!',
-        '하지만 말야',
-        'lorem lorem lorem lorem',
-        '물을 가져다 주세요', 
-        '고장났어요 빨리 와주세요!!!',
-        '라면을끓일때에는 빨간맛으로 부탁드립니다.',
-        '나는 지금 배가 고프다',
-        '똥개 똥구멍!',
-        '하지만 말야',
-        'lorem lorem lorem lorem',
-        '물을 가져다 주세요', 
-        '고장났어요 빨리 와주세요!!!',
-        '라면을끓일때에는 빨간맛으로 부탁드립니다.',
-        '나는 지금 배가 고프다',
-        '똥개 똥구멍!',
-        '하지만 말야',
-        'lorem lorem lorem lorem',
+        '연습장 시간 더 넣어주세요', 
+        '게임 넣어주세요',
+        '플레이어 추가해주세요',
+        '코스매니저가 안돼요',
+        '화면이 깨졌어요',
+        '공이 안나와요',
+        '음료 더 주세요',
+        '티가 부러졌어요',
+        '설정 변경해주세요',
+        '에어컨 켜주세요',
+        '에어컨 꺼주세요',
+        '홀인원 넣어주세요',
+        '잔돈 교환해주세요',
+        '맥주 주세요',
+        '소주요',
+        '과자 주세요',
+        '한 번 와주세요'
     ];
 
     const OrderBox = ({ order }) => {

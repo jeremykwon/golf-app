@@ -65,7 +65,7 @@ const tmpAdDatas = [
     },
     {
         id: 'id5',
-        title: '강북 이박사 철물점'
+        title: '강북 철물점'
     },
     {
         id: 'id6',
@@ -100,7 +100,7 @@ const MasterLeftSide = ({ selectedCompanyIndex, setSelectedCompanyIndex }) => {
     return (
         <div className={cx('master-left-side-container')}>
             <div className={cx('content-wrap')}>
-                <AdminTitle title={'업체 관리'} addHandler={addCompanyHandler} />
+                <AdminTitle title={'업체 관리'} addHandler={addCompanyHandler} isSelected={isAddCompany} />
                 {
                     isAddCompany &&
                         <AddCompanyComponent />
@@ -113,7 +113,7 @@ const MasterLeftSide = ({ selectedCompanyIndex, setSelectedCompanyIndex }) => {
             </div>
 
             <div className={cx('content-wrap')}>
-                <AdminTitle title={'광고 관리'} addHandler={addAdvertisingHandler} />
+                <AdminTitle title={'광고 관리'} addHandler={addAdvertisingHandler} isSelected={isAddAdvertising} />
                 {
                     isAddAdvertising &&
                         <AddAdvertisingComponent />

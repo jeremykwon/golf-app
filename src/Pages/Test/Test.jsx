@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 
 import { alertMp3 } from 'Asset';
 
-const Test = () => {
+const Test = ({ text }) => {
     function button_click() {
         const audio = new Audio(alertMp3);
         audio.play();
@@ -11,7 +11,7 @@ const Test = () => {
     return (
         <>
             <button onClick={button_click}>
-                Test Sound
+                { text }
             </button>
         </>
         

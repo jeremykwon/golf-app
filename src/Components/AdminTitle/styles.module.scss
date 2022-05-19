@@ -4,8 +4,18 @@
     padding-left: 13px;
     margin-bottom: 20px;
     color: #282c34;
-
+    
     h2 {
         margin-right: 5px;
+    }
+
+    .isSelected {
+        transform: rotate( 45deg );
+        transition: all ease 0.2s;
+    }
+
+    .isSelected1 {
+        transform: rotate( 0 );
+        transition: all ease 0.2s;
     }
 }

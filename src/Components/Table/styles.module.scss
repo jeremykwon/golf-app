@@ -17,26 +17,29 @@
         display: flex;
         align-items: center;
         justify-content: space-between;
+        background-color: #fff;
         
 
         &:hover {
-            background-color: #edf4fb;
+            // background-color: #edf4fb;
+            background-color: #fafafa;
         }
 
         .content-text {
-            // width: 300px;
             flex: 1;
             margin-right: 10px;
-            // overflow: hidden;
             border: none;
             height: 50px;
-            // text-overflow: ellipsis;
             font-size: 20px;
             display: flex;
             align-items: center;
             background-color: inherit;
             outline: none;
             border-bottom: 3px solid black;
+
+            &:hover {
+                background-color: inherit;
+            }
 
             &:disabled {
                 border-bottom: none;
@@ -49,6 +52,12 @@
             display: flex;
             justify-content: space-around;
         }
+    }
+
+    .selected {
+        // background-color: #282C34;
+        background-color: #edf4fb;
+        color: #fff;
     }
 
     
@@ -68,8 +77,5 @@
         box-shadow: inset 2px 2px 5px 0 rgba(#fff, 0.5);
     }
 
-    .selected {
-        background-color: #282C34;
-        color: #fff;
-    }
+    
 }

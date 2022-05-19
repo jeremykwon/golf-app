@@ -7,7 +7,7 @@ import AddRoundedIcon from '@mui/icons-material/AddRounded';
 
 const cx = classNames.bind(styles);
 
-const AdminTitle = ({ title, addHandler }) => {
+const AdminTitle = ({ title, addHandler, isSelected }) => {
    
     return (
         <div className={cx('admin-title-container')}>
@@ -19,6 +19,7 @@ const AdminTitle = ({ title, addHandler }) => {
                         color="primary"
                         aria-label="upload picture"
                         component="span"
+                        className={cx({ isSelected: isSelected}, { isSelected1: !isSelected})}
                         // onClick={modifyModeOn}
                         >
                         <AddRoundedIcon />
