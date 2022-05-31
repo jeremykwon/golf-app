@@ -11,14 +11,13 @@ import DriveFileMoveRoundedIcon from '@mui/icons-material/DriveFileMoveRounded';
 
 const cx = classNames.bind(styles);
 
-
-
 const Table = ({ 
     datas, 
     clickHandler=()=> {}, 
     modifyHandler, 
     moveHandler,
-    selectedIndex
+    selectedIndex,
+    deleteHandler
 }) => {
 
     return (
@@ -33,6 +32,7 @@ const Table = ({
                         modifyHandler={modifyHandler}
                         moveHandler={moveHandler}
                         selectedIndex={selectedIndex}
+                        deleteHandler={deleteHandler}
                         />)
             }
         </div>
@@ -45,7 +45,8 @@ const TableContent = ({
     index,
     modifyHandler,
     moveHandler,
-    selectedIndex
+    selectedIndex,
+    deleteHandler
 }) => {
     const [isModify, setIsModify] = useState(false);
     const inputRef = useRef();
@@ -100,7 +101,12 @@ const TableContent = ({
                         
                 }
 
-                <IconButton color="primary" aria-label="upload picture" component="span">
+                <IconButton 
+                    color="primary"
+                    aria-label="upload picture"
+                    component="span"
+                    onClick={(index) => {deleteHandler(index)}}
+                    >
                     <DeleteForeverIcon />
                 </IconButton>
             </div>

@@ -1,9 +1,11 @@
-import React, { useState } from 'react';
+import React, { useState, useMemo } from 'react';
 import classNames from 'classnames/bind';
 import styles from './styles.module.scss';
 
 import { Table, AdminTitle } from 'Components';
 import { Button, TextField } from '@mui/material';
+
+import { makeAdmin } from 'Lib/api';
 
 const cx = classNames.bind(styles);
 
@@ -80,7 +82,7 @@ const tmpAdDatas = [
 
 const MasterLeftSide = ({ selectedCompanyIndex, setSelectedCompanyIndex }) => {
     const [isAddCompany, setIsAddCompany] = useState(false);
-    const [isAddAdvertising, setIsAddAdvertising] = useState(false);
+    const [isAddAdvertising, setIsAddAdvertising] = useState(false);    
 
     const addCompanyHandler = () => {
         setIsAddCompany(!isAddCompany);
@@ -184,50 +186,96 @@ const AddAdvertisingComponent = () => {
     );
 };
 
+// 업체 추가
 const AddCompanyComponent = () => {
+    /* ---------- 데이터 정의 영역 ---------- */
+    const [companyInfo, setCompanyInfo] = useState({
+        branchName: '',
+        id: '',
+        pw1: '',
+        pw2: ''
+    });
+    const idDispabeled = useMemo(() => {
+        if (
+            companyInfo.branchName === '' || 
+            companyInfo.id === '' || 
+            companyInfo.pw1 === '' ||
+            companyInfo.pw2 === ''
+        ) return true;
+        else return false;
+    }, [companyInfo]);
+    const inputs = [
+        {
+            label: '지점 명',
+            key: 'branchName'
+        },
+        {
+            label: '아이디',
+            key: 'id'
+        },
+        {
+            label: '비밀번호',
+            key: 'pw1'
+        },
+        {
+            label: '비밀번호 확인',
+            key: 'pw2'
+        }
+    ];
+
+    /* ---------- 함수 영역 ---------- */
+    const changeCompanyInfo = ({ e, key }) => {
+        setCompanyInfo({
+            ...companyInfo,
+            [key]: e.target.value
+        });
+    };
+
+    const createValidationText = () => {
+        if (companyInfo.pw1 !== companyInfo.pw2) return '입력하신 비밀번호가 일치하지 않습니다.';
+        return '';
+    };
+
+    const createAdmin = async ()=> {
+        const errText = createValidationText();
+        if (errText !== '') {
+            alert(errText);
+            return;
+        }
+
+        const data = await makeAdmin({ 
+            id: companyInfo.id, 
+            password: companyInfo.pw1,
+            nickname: companyInfo.branchName 
+        });
+
+        if (data === 'Duplicate ID') alert('아이디가 중복됩니다.');
+        else if (data === 'Duplicate NICKNAME') alert('닉네임이 중복됩니다.');
+        else alert('업체 생성이 완료되었습니다.');
+    };
     
     return (
         <div className={cx('input-wrap', 'room-setting-wrap')}>
-            <TextField
-                className={cx('company-text-field')}
-                fullWidth
-                label="지점 명"
-                // onChange={holeMoneyChange}
-                // value={holeMoney}
-                size="small"
-                // disabled={!isModify}
-            />
-            <TextField
-                className={cx('company-text-field')}
-                fullWidth
-                label="아이디"
-                // onChange={holeMoneyChange}
-                // value={holeMoney}
-                size="small"
-                // disabled={!isModify}
-            />
-            <TextField
-                className={cx('company-text-field')}
-                fullWidth
-                label="비밀번호"
-                // onChange={holeMoneyChange}
-                // value={holeMoney}
-                size="small"
-                // disabled={!isModify}
-            />
-            <TextField
-                className={cx('company-text-field')}
-                fullWidth
-                label="비밀번호 확인"
-                // onChange={holeMoneyChange}
-                // value={holeMoney}
-                size="small"
-                // disabled={!isModify}
-            />
+            {
+                inputs.map((item, index) => {
+                    return <TextField
+                        key={index}
+                        className={cx('company-text-field')}
+                        fullWidth
+                        label={item.label}
+                        onChange={(e) => { changeCompanyInfo({ e, key: item.key }) }}
+                        value={companyInfo[`${item.key}`]}
+                        size="small"
+                        type={item.key.includes('pw') ? 'password' : 'text'}
+                    />
+                })
+            }
 
             <Button 
                 className={cx('company-save-btn')}
                 variant="contained"
+                disabled={idDispabeled}
+                onClick={createAdmin}
                 >
                 추가
             </Button>
