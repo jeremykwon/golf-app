@@ -19,13 +19,13 @@
         justify-content: space-between;
         background-color: #fff;
         
-
         &:hover {
             // background-color: #edf4fb;
             background-color: #fafafa;
         }
 
         .content-text {
+            cursor: pointer;
             flex: 1;
             margin-right: 10px;
             border: none;

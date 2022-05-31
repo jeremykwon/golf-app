@@ -7,14 +7,14 @@ const makeAdmin = async ({
     password
 }) => {
     try {
-        const res = await sendAPI({ 
+        const res = await sendAPI({
             url: '/master/user',
             method: 'post',
             data: {
                 id,
                 nickname: nickname,
                 password,
-                user_id: getStorage({ key: 'user_info' }).user_id
+                master_id: getStorage({ key: 'user_info' }).nickname
             }
         });
 
@@ -25,9 +25,23 @@ const makeAdmin = async ({
     }
 };
 
+const getMasterPageInfo = async () => {
+    try {
+        const res = await sendAPI({
+            url: `/master/render?master_id=${getStorage({ key: 'user_info' }).nickname}`,
+            method: 'get',
+        });
+
+        return res.data;
+    } catch (err) {
+        alert('정보 불러오기 오류 관리자에게 문의하세요');
+        throw err;
+    }
+};
+
 const deleteAdmin = async ({ id }) => {
     try {
-        const res = await sendAPI({ 
+        const res = await sendAPI({
             url: '/master/user',
             method: 'delete',
             data: {
@@ -48,7 +62,7 @@ const login = async ({
     password
 }) => {
     try {
-        const res = await sendAPI({ 
+        const res = await sendAPI({
             url: '/common/login',
             method: 'post',
             data: {
@@ -64,4 +78,4 @@ const login = async ({
     }
 };
 
-export { login, makeAdmin, deleteAdmin };
+export { login, makeAdmin, deleteAdmin, getMasterPageInfo };

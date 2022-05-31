@@ -59,9 +59,6 @@ const TableContent = ({
         if (isModify) inputRef.current.focus();
     }, [isModify]);
 
-    console.log('selectedIndex---', selectedIndex)
-    console.log('index---', index)
-
     return (
         <div 
             className={cx('content-container', {selected: selectedIndex === index} )}

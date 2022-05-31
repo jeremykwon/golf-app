@@ -38,7 +38,6 @@ const Advertising = ({ isAdView, setIsAdView }) => {
 		
 		if (currentAd.type === 'image') {
 			let interval = setInterval(() => {
-				console.log(image_view_time)
 				if (!isAdView) clearInterval(interval);
 
 				if (image_view_time < MAX_IMAGE_VIEW_TIME) image_view_time += 1 ;
