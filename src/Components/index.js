@@ -13,8 +13,10 @@ import AdminHoleMoney from './AdminHoleMoney/AdminHoleMoney';
 
 // master
 import MasterLeftSide from './MasterLeftSide/MasterLeftSide';
-import MasterRightSide from './MasterRightSide/MasterRightSide';
+import CompanyModalContent from './CompanyModalContent/CompanyModalContent';
+import AdvertisingModalContent from './AdvertisingModalContent/AdvertisingMidalContent';
 
+// common
 
 export {
     Advertising,
@@ -25,5 +27,6 @@ export {
     AdminTitle,
     AdminHoleMoney,
     MasterLeftSide,
-    MasterRightSide
+    CompanyModalContent,
+    AdvertisingModalContent,
 };

@@ -32,7 +32,7 @@ const Table = ({
                         modifyHandler={modifyHandler}
                         moveHandler={moveHandler}
                         selectedIndex={selectedIndex}
-                        deleteHandler={deleteHandler}
+                        deleteHandler={() => { deleteHandler(data); }}
                         />)
             }
         </div>
@@ -67,12 +67,12 @@ const TableContent = ({
             <input
                 ref={inputRef}
                 className={cx('content-text')}
-                value={data.title}
+                value={data.nickname || data.name}
                 disabled={!isModify}
-                title={data.title}
+                title={data.nickname || data.name}
                 />
 
-            <div className={cx('content-btn-wrap')}>
+            <div className={cx('content-btn-wrap')} onClick={(e) => {e.stopPropagation()}}>
                 {
                     moveHandler &&
                         <IconButton color="primary" aria-label="upload picture" component="span">

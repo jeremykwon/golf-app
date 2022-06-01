@@ -42,7 +42,7 @@ const LoginPage = () => {
 
     /* 로그인 */
     const signIn = async () => {
-        setIsLoading(true);
+        // setIsLoading(true);
 
         const data = await login({
             id: userInfo.id,
@@ -61,7 +61,8 @@ const LoginPage = () => {
                 value: {
                     nickname: data.nickname,
                     user_id: data.user_id,
-                    user_type: userType
+                    user_type: userType,
+                    token: data.token
                 }
             });
 

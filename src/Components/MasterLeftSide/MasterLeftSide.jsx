@@ -5,82 +5,20 @@ import styles from './styles.module.scss';
 import { Table, AdminTitle } from 'Components';
 import { Button, TextField } from '@mui/material';
 
-import { makeAdmin } from 'Lib/api';
+import { makeAdmin, deleteAdmin } from 'Lib/api';
 
 const cx = classNames.bind(styles);
 
-const tmpCompanyDatas = [
-    {
-        id: 'id1',
-        title: '강동 골프존'
-    },
-    {
-        id: 'id2',
-        title: '강서 골프존'
-    },
-    {
-        id: 'id3',
-        title: '강남 골프의신'
-    },
-    {
-        id: 'id4',
-        title: '강남 골프존'
-    },
-    {
-        id: 'id5',
-        title: '강북 골프존'
-    },
-    {
-        id: 'id6',
-        title: '강북 골플의역사'
-    },
-    {
-        id: 'id7',
-        title: '강남 골프골프'
-    },
-    {
-        id: 'id8',
-        title: '강서 골프골프'
-    },
-    {
-        id: 'id9',
-        title: '동작 스크린골프'
-    },
-];
-
-const tmpAdDatas = [
-    {
-        id: 'id1',
-        title: '강동 순대국집'
-    },
-    {
-        id: 'id2',
-        title: '강서 스크린야구'
-    },
-    {
-        id: 'id3',
-        title: '강남 갈비찜'
-    },
-    {
-        id: 'id4',
-        title: '강남 피자마루'
-    },
-    {
-        id: 'id5',
-        title: '강북 철물점'
-    },
-    {
-        id: 'id6',
-        title: '강북 스크린골프장'
-    },
-    {
-        id: 'id7',
-        title: '강남 골프갤러리'
-    },
-];
-
-
-const MasterLeftSide = ({ selectedCompanyIndex, setSelectedCompanyIndex }) => {
+const MasterLeftSide = ({ 
+    selectedCompanyIndex,
+    setSelectedCompanyIndex,
+    setModalType,
+    adList,
+    adminList,
+    getAdminInfo,
+    getADInfo,
+    setSelectedADIndex
+}) => {
     const [isAddCompany, setIsAddCompany] = useState(false);
     const [isAddAdvertising, setIsAddAdvertising] = useState(false);    
 
@@ -94,9 +32,20 @@ const MasterLeftSide = ({ selectedCompanyIndex, setSelectedCompanyIndex }) => {
 
     const selectedCompanyHandler = (index) => {
         setSelectedCompanyIndex(index);
+        setModalType('company');
+    };
+
+    const selectedADHandler = (index) => {
+        setSelectedADIndex(index);
+        setModalType('advertising');
     };
 
     const advertisingMoveHandler = () => {
+    };
+
+    const adminDeleteHandler = async (data) => {
+        const res = await deleteAdmin({ adminId: data.user_id });
+        if (res === 'Delete is Done') getAdminInfo();
     };
 
     return (
@@ -105,12 +54,16 @@ const MasterLeftSide = ({ selectedCompanyIndex, setSelectedCompanyIndex }) => {
                 <AdminTitle title={'업체 관리'} addHandler={addCompanyHandler} isSelected={isAddCompany} />
                 {
                     isAddCompany &&
-                        <AddCompanyComponent />
+                        <AddCompanyComponent
+                            getAdminInfo={getAdminInfo}
+                            addCompanyHandler={addCompanyHandler}
+                            />
                 }
                 <Table 
-                    datas={tmpCompanyDatas}
+                    datas={adminList}
                     clickHandler={selectedCompanyHandler}
                     selectedIndex={selectedCompanyIndex}
+                    deleteHandler={adminDeleteHandler}
                     />
             </div>
 
@@ -120,7 +73,11 @@ const MasterLeftSide = ({ selectedCompanyIndex, setSelectedCompanyIndex }) => {
                     isAddAdvertising &&
                         <AddAdvertisingComponent />
                 }
-                <Table datas={tmpAdDatas} moveHandler={advertisingMoveHandler} />
+                <Table
+                    datas={adList}
+                    moveHandler={advertisingMoveHandler}
+                    clickHandler={selectedADHandler}
+                    />
             </div>
         </div>
     );
@@ -187,7 +144,7 @@ const AddAdvertisingComponent = () => {
 };
 
 // 업체 추가
-const AddCompanyComponent = () => {
+const AddCompanyComponent = ({ getAdminInfo, addCompanyHandler }) => {
     /* ---------- 데이터 정의 영역 ---------- */
     const [companyInfo, setCompanyInfo] = useState({
         branchName: '',
@@ -251,7 +208,11 @@ const AddCompanyComponent = () => {
 
         if (data === 'Duplicate ID') alert('아이디가 중복됩니다.');
         else if (data === 'Duplicate NICKNAME') alert('닉네임이 중복됩니다.');
-        else alert('업체 생성이 완료되었습니다.');
+        else {
+            alert('업체 생성이 완료되었습니다.');
+            addCompanyHandler();
+            getAdminInfo();
+        }
     };
     
     return (

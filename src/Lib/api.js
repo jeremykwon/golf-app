@@ -12,7 +12,7 @@ const makeAdmin = async ({
             method: 'post',
             data: {
                 id,
-                nickname: nickname,
+                nickname,
                 password,
                 master_id: getStorage({ key: 'user_info' }).nickname
             }
@@ -25,10 +25,38 @@ const makeAdmin = async ({
     }
 };
 
-const getMasterPageInfo = async () => {
+const getAllADInfo = async () => {
     try {
         const res = await sendAPI({
-            url: `/master/render?master_id=${getStorage({ key: 'user_info' }).nickname}`,
+            url: `/master/advert`,
+            method: 'get',
+        });
+
+        return res.data;
+    } catch (err) {
+        alert('광고 정보 불러오기 오류 관리자에게 문의하세요');
+        throw err;
+    }
+};
+
+const getAllAdminInfo = async () => {
+    try {
+        const res = await sendAPI({
+            url: `/master/user`,
+            method: 'get',
+        });
+
+        return res.data;
+    } catch (err) {
+        alert('업체 정보 불러오기 오류 관리자에게 문의하세요');
+        throw err;
+    }
+};
+
+const getAdminADInfo = async ({ userId }) => {
+    try {
+        const res = await sendAPI({
+            url: `/master/ad-node?user_id=${userId}`,
             method: 'get',
         });
 
@@ -39,15 +67,13 @@ const getMasterPageInfo = async () => {
     }
 };
 
-const deleteAdmin = async ({ id }) => {
+
+/* admin 삭제 */
+const deleteAdmin = async ({ adminId }) => {
     try {
         const res = await sendAPI({
-            url: '/master/user',
+            url: `/master/user?user_id=${adminId}`,
             method: 'delete',
-            data: {
-                id,
-                user_id: getStorage({ key: 'user_info' }).user_id
-            }
         });
 
         return res.data;
@@ -57,6 +83,7 @@ const deleteAdmin = async ({ id }) => {
     }
 };
 
+/* 로그인 */
 const login = async ({
     id,
     password
@@ -78,4 +105,11 @@ const login = async ({
     }
 };
 
-export { login, makeAdmin, deleteAdmin, getMasterPageInfo };
+export { 
+    login, 
+    makeAdmin,
+    deleteAdmin, 
+    getAllADInfo, 
+    getAdminADInfo, 
+    getAllAdminInfo 
+};

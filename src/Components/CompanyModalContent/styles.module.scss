@@ -1,0 +1,25 @@
+.company-modal-content-body {
+    width: 60vw;
+    height: 80vh;
+    padding: 30px;
+    background-color: #fff;
+    max-width: 800px;
+    border-radius: 5px;
+    display: flex;
+    flex-direction: column;
+
+    .check-box-wrap {
+        flex: 1;
+        margin-bottom: 30px;
+
+        .check-box {
+            width: fit-content;
+        }
+    }
+
+    
+
+    .modal-ok-btn {
+        width: 100%;
+    }
+}
