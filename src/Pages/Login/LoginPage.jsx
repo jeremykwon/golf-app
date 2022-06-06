@@ -42,14 +42,14 @@ const LoginPage = () => {
 
     /* 로그인 */
     const signIn = async () => {
-        // setIsLoading(true);
+        setIsLoading(true);
 
         const data = await login({
             id: userInfo.id,
             password: userInfo.pw
         });
 
-        if (data === 'Not exsist user') {
+        if (data === 'Not exsist user' || data === 'Not Found User') {
             initUserInfo();
             setIsError('아이디와 비밀번호를 확인하세요.');
         } else {

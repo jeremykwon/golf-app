@@ -1,6 +1,7 @@
 import sendAPI from './Network';
 import { getStorage } from './Storage';
 
+/*************** MASTER START ***************/
 const makeAdmin = async ({
     id,
     nickname,
@@ -67,6 +68,28 @@ const getAdminADInfo = async ({ userId }) => {
     }
 };
 
+// TODO: 파라미터 수정해야함
+/* 어드민 광고 수정 */
+const modifyADOfAdmin = async ({
+    user_id,
+    adverts
+}) => {
+    try {
+        const res = await sendAPI({
+            url: '/master/ad-node',
+            method: 'put',
+            data: {
+                user_id,
+                adverts
+            }
+        });
+
+        return res.data;
+    } catch (err) {
+        alert('로그인 오류 관리자에게 문의하세요');
+        throw err;
+    }
+};
 
 /* admin 삭제 */
 const deleteAdmin = async ({ adminId }) => {
@@ -82,7 +105,75 @@ const deleteAdmin = async ({ adminId }) => {
         throw err;
     }
 };
+/*************** MASTER FINISH ***************/
 
+
+/*************** ADMIN START ***************/
+const getAdminPageInfo = async ({ userId }) => {
+    try {
+        const res = await sendAPI({
+            url: `/admin/render?user_id=${userId}`,
+            method: 'get',
+        });
+
+        return res.data;
+    } catch (err) {
+        alert('admin menu error');
+        throw err;
+    }
+};
+
+// 어드민 주문 리스트를 받아오는 api
+const getAdminMenu = async ({ userId }) => {
+    try {
+        const res = await sendAPI({
+            url: `/admin/menu?user_id=${userId}`,
+            method: 'get',
+        });
+
+        return res.data;
+    } catch (err) {
+        alert('admin menu error');
+        throw err;
+    }
+};
+
+// 홀인원 가격을 받아오는 api
+// const getHoleInOnePrice = async ({ userId }) => {
+//     try {
+//         const res = await sendAPI({
+//             url: `/admin/holeinone=${userId}`,
+//             method: 'get',
+//         });
+
+//         return res.data;
+//     } catch (err) {
+//         alert('admin menu error');
+//         throw err;
+//     }
+// };
+
+// 홀인원 가격을 수정하는 api
+const modifyHoleInOnePrice = async ({ userId, holeInOnePrice }) => {
+    try {
+        const res = await sendAPI({
+            url: `/admin/holeinone`,
+            method: 'put',
+            data: {
+                user_id: userId,
+                set_holeinone: holeInOnePrice
+            }
+        });
+
+        return res.data;
+    } catch (err) {
+        alert('admin menu error');
+        throw err;
+    }
+};
+/*************** ADMIN FINISH ***************/
+
+/*************** COMMON START ***************/
 /* 로그인 */
 const login = async ({
     id,
@@ -104,12 +195,20 @@ const login = async ({
         throw err;
     }
 };
+/*************** COMMON FINISH ***************/
 
 export { 
-    login, 
+    login,
+
     makeAdmin,
     deleteAdmin, 
     getAllADInfo, 
     getAdminADInfo, 
-    getAllAdminInfo 
+    getAllAdminInfo,
+    modifyADOfAdmin,
+
+    getAdminPageInfo,
+    getAdminMenu,
+    // getHoleInOnePrice,
+    modifyHoleInOnePrice
 };

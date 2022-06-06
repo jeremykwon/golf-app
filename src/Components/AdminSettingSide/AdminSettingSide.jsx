@@ -7,45 +7,6 @@ import { Button, TextField, Modal } from '@mui/material';
 
 const cx = classNames.bind(styles);
 
-const tmpOrderDatas = [
-    {
-        id: 'id1',
-        title: '주문1 입니다.'
-    },
-    {
-        id: 'id2',
-        title: '주문2 입니다.'
-    },
-    {
-        id: 'id3',
-        title: '주문3 입니다.'
-    },
-    {
-        id: 'id4',
-        title: '주문4 입니다.'
-    },
-    {
-        id: 'id5',
-        title: '주문5 입니다.'
-    },
-    {
-        id: 'id6',
-        title: '주문6 입니다.'
-    },
-    {
-        id: 'id7',
-        title: '주문7 입니다.'
-    },
-    {
-        id: 'id8',
-        title: '주문8 입니다.'
-    },
-    {
-        id: 'id9',
-        title: '주문9 입니다.'
-    },
-];
-
 const tmpRoomDatas = [
     {
         id: 'id1',
@@ -69,10 +30,13 @@ const tmpRoomDatas = [
     }
 ];
 
-const AdminSettingSide = () => {
+const AdminSettingSide = ({ pageInfo }) => {
     const [selectedRoomIndex, setSelectedRoomIndex] = useState(null);
     const [isAddOrder, setIsAddOrder] = useState(false);
     const [isAddRoom, setIsAddRoom] = useState(false);
+    
+
+    console.log(pageInfo)
 
     const addOrderHandler = () => {
         setIsAddOrder(!isAddOrder);
@@ -135,7 +99,7 @@ const AdminSettingSide = () => {
                 <div className={cx('setting-side-content-wrap')}>
                     <AdminTitle title={'홀인원 관리'} />
 
-                    <AdminHoleMoney />
+                    <AdminHoleMoney price={pageInfo.holeInOne} />
                 </div>
                 
                 <div className={cx('setting-side-content-wrap')}>
@@ -146,7 +110,7 @@ const AdminSettingSide = () => {
                             <AddOrderComponent />
                     }
 
-                    <Table datas={tmpOrderDatas}/>
+                    <Table datas={pageInfo.orderList}/>
                 </div>
 
                 {/* 방관리 */}
@@ -156,7 +120,6 @@ const AdminSettingSide = () => {
                         isAddRoom &&
                             <AddRoomComponent />
                     }
-                    
 
                     <Table datas={tmpRoomDatas} clickHandler={roomClickHandler}/>
                 </div>

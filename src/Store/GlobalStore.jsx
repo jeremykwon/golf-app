@@ -1,12 +1,13 @@
 import { atom, selector } from 'recoil';
 
-/*
- * ad
- * main
- */
-const stepState = atom({
-    key: "stepState",
-    default: 'ad'
+// 모달
+const alertState = atom({
+    key: "alert",
+    default: {
+        isView: false,
+        okHandler: () => {},
+        text: ''
+    }
 });
 
 
@@ -34,7 +35,7 @@ const stepState = atom({
 // });
 
 export {
-    stepState,
+    alertState,
     // isNavbarOpen, 
     // showAlert,
 };

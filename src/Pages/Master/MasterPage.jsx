@@ -42,6 +42,10 @@ const MasterPage = () => {
             return;
         }
         let info = await getAllAdminInfo();
+        if (info === 'Not Have Authority') {
+            alert('접근권한이 없습니다.');
+            window.location.href="/signin";
+        }
         setAdminList(info.admin_list);
     };
 

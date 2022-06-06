@@ -22,30 +22,39 @@ const MasterLeftSide = ({
     const [isAddCompany, setIsAddCompany] = useState(false);
     const [isAddAdvertising, setIsAddAdvertising] = useState(false);    
 
+    // 업체 추가 toggle
     const addCompanyHandler = () => {
         setIsAddCompany(!isAddCompany);
     };
 
+    // 광고 추가 toggle
     const addAdvertisingHandler = () => {
         setIsAddAdvertising(!isAddAdvertising);
     };
 
+    // 업체 선택 handler
     const selectedCompanyHandler = (index) => {
         setSelectedCompanyIndex(index);
         setModalType('company');
     };
 
+    // 광고 선택 handler
     const selectedADHandler = (index) => {
         setSelectedADIndex(index);
         setModalType('advertising');
     };
 
-    const advertisingMoveHandler = () => {
-    };
-
+    // 업체 삭제 handler
     const adminDeleteHandler = async (data) => {
         const res = await deleteAdmin({ adminId: data.user_id });
         if (res === 'Delete is Done') getAdminInfo();
+    };
+
+    // 광고 삭제 handler
+    const adDeleteHandler = async (data) => {
+        // TODO: 광고 삭제 로직 추가
+        // const res = await deleteAdmin({ adminId: data.user_id });
+        // if (res === 'Delete is Done') getAdminInfo();
     };
 
     return (
@@ -75,8 +84,8 @@ const MasterLeftSide = ({
                 }
                 <Table
                     datas={adList}
-                    moveHandler={advertisingMoveHandler}
                     clickHandler={selectedADHandler}
+                    deleteHandler={adDeleteHandler}
                     />
             </div>
         </div>
@@ -96,10 +105,7 @@ const AddAdvertisingComponent = () => {
                 className={cx('company-text-field')}
                 fullWidth
                 label="광고 명"
-                // onChange={holeMoneyChange}
-                // value={holeMoney}
                 size="small"
-                // disabled={!isModify}
             />
 
             <div className={cx('file-upload-wrap')}>

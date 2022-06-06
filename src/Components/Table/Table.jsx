@@ -1,7 +1,10 @@
 import React, { useState, useRef, useEffect } from 'react';
+import { useSetRecoilState } from 'recoil';
 
 import classNames from 'classnames/bind';
 import styles from './styles.module.scss';
+
+import { alertState } from 'Store/GlobalStore';
 
 import { Button } from '@mui/material';
 import IconButton from '@mui/material/IconButton';
@@ -15,7 +18,6 @@ const Table = ({
     datas, 
     clickHandler=()=> {}, 
     modifyHandler, 
-    moveHandler,
     selectedIndex,
     deleteHandler
 }) => {
@@ -30,10 +32,13 @@ const Table = ({
                         key={index}
                         clickHandler={clickHandler}
                         modifyHandler={modifyHandler}
-                        moveHandler={moveHandler}
                         selectedIndex={selectedIndex}
                         deleteHandler={() => { deleteHandler(data); }}
                         />)
+            }
+            {
+                datas.length === 0 &&
+                    <p style={{ margin: '10px 0', textAlign: 'center', fontSize: '18px' }}>데이터를 추가해주세요.</p>
             }
         </div>
     );
@@ -44,16 +49,26 @@ const TableContent = ({
     clickHandler,
     index,
     modifyHandler,
-    moveHandler,
     selectedIndex,
     deleteHandler
 }) => {
+    console.log(data)
     const [isModify, setIsModify] = useState(false);
     const inputRef = useRef();
 
+    const setInfo = useSetRecoilState(alertState);
+
     const modifyModeOn = () => {
         setIsModify(!isModify);
-    }
+    };
+
+    const modalOpen = () => {
+        setInfo({
+            isView: true,
+            okHandler: () => { deleteHandler(index) },
+            text: `${data.nickname || data.name || data.title} 을(를) 삭제하시겠습니까?`
+        });
+    };
 
     useEffect(() => {
         if (isModify) inputRef.current.focus();
@@ -67,19 +82,12 @@ const TableContent = ({
             <input
                 ref={inputRef}
                 className={cx('content-text')}
-                value={data.nickname || data.name}
+                value={data.nickname || data.name || data.title}
                 disabled={!isModify}
-                title={data.nickname || data.name}
+                title={data.nickname || data.name || data.title}
                 />
 
             <div className={cx('content-btn-wrap')} onClick={(e) => {e.stopPropagation()}}>
-                {
-                    moveHandler &&
-                        <IconButton color="primary" aria-label="upload picture" component="span">
-                            <DriveFileMoveRoundedIcon />
-                        </IconButton>
-                }
-
                 { 
                     modifyHandler &&
                         (
@@ -102,7 +110,7 @@ const TableContent = ({
                     color="primary"
                     aria-label="upload picture"
                     component="span"
-                    onClick={(index) => {deleteHandler(index)}}
+                    onClick={modalOpen}
                     >
                     <DeleteForeverIcon />
                 </IconButton>

@@ -1,15 +1,19 @@
 import React/* , { useEffect, useState } */ from 'react'
 
-// import { useRecoilValue } from 'recoil';
+import { useRecoilValue } from 'recoil';
 // import { stepState } from 'Store/GlobalStore';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 
+import { alertState } from 'Store/GlobalStore'
+
 import { ClientPage, LoginPage, NotFoundPage, AdminPage, Test, MasterPage } from 'Pages';
+import { Alert } from 'Components';
 
 // import logo from './logo.svg';
 // import { FullScreen, useFullScreenHandle } from "react-full-screen";
 
 function App() {
+	const info = useRecoilValue(alertState);
 	// const handle = useFullScreenHandle();
 
 	// console.log(document.querySelector("#container"))
@@ -26,6 +30,9 @@ function App() {
 
 	return (
 		<div className="App">
+			{
+				info.isView && <Alert />
+			}
 			<Router>
 				<Routes>
 					<Route path="*" element={<NotFoundPage />} />

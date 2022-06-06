@@ -17,6 +17,7 @@ import CompanyModalContent from './CompanyModalContent/CompanyModalContent';
 import AdvertisingModalContent from './AdvertisingModalContent/AdvertisingMidalContent';
 
 // common
+import Alert from './Common/Alert';
 
 export {
     Advertising,
@@ -29,4 +30,6 @@ export {
     MasterLeftSide,
     CompanyModalContent,
     AdvertisingModalContent,
+
+    Alert,
 };
