@@ -3,10 +3,9 @@ import { getStorage } from 'Lib/Storage';
 
 const axios = Axios.create({
     // baseURL: `${process.env.REACT_APP_API_PROTOCOL}://${process.env.REACT_APP_API_HOST}:${process.env.REACT_APP_API_PORT}`,
-    baseURL: ``,
+    // baseURL: ``,
     // headers: { 
     //     'Cache-Control': 'no-cache',
-    //     'authorization': token
     // },
 });
 
@@ -14,7 +13,8 @@ axios.interceptors.request.use((config) => {
         let token = getStorage({ key: 'user_info' })?.token;
 
         const newHeaders = {
-            'authorization': token
+            'authorization': token,
+            'Cache-Control': 'no-cache'
         };
 
         config.headers = newHeaders;

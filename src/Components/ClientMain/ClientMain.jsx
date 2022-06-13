@@ -1,4 +1,6 @@
-import React, { useCallback, useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
+
+import { requestOrder } from 'Lib/api';
 
 import classNames from 'classnames/bind';
 import styles from './styles.module.scss';
@@ -32,7 +34,7 @@ const Alert = React.forwardRef(function Alert(props, ref) {
 });
 
 
-const ClientMain = () => {
+const ClientMain = ({ clientInfo }) => {
     // const [flag, setFalg] = useState(false);
     // const [isQuestionModal, setIsQuestionModal] = useState(false);
     const [isOpenMenu, setIsOpenMenu] = useState(false);
@@ -96,7 +98,12 @@ const ClientMain = () => {
                         modalInfo.type === '광고 문의' && <AdvertisingModalBody modalCloseHandler={modalCloseHandler} />
                     }
                     {
-                        modalInfo.type === '주문' && <OrderModalBody snackBarOpenhandler={snackBarOpenhandler} modalCloseHandler={modalCloseHandler} />
+                        modalInfo.type === '주문' && 
+                            <OrderModalBody
+                                snackBarOpenhandler={snackBarOpenhandler}
+                                modalCloseHandler={modalCloseHandler}
+                                munuList={clientInfo.menuList}
+                                />
                     }
                 </>
             </Modal>
@@ -121,7 +128,7 @@ const ClientMain = () => {
                     <MenuItems toggleDrawer={toggleDrawer} modalOpenHandler={modalOpenHandler} />
                 </Drawer>
                 
-                <HoleInOne />
+                <HoleInOne price={clientInfo.holinonePrice} />
 
                 <video
                     className={cx('ad-video')}
@@ -196,7 +203,7 @@ const MenuItems = ({ toggleDrawer, modalOpenHandler }) => {
     );
 };
 
-const HoleInOne = () => {
+const HoleInOne = ({ price }) => {
 
     useEffect(() => {
         const numberCounter = (target_frame, target_number)  => {
@@ -222,7 +229,7 @@ const HoleInOne = () => {
             };
             counter();
         };
-        numberCounter("counter1", 1000000);
+        numberCounter("counter1", price);
     }, []);
 
     return (
@@ -262,33 +269,24 @@ const AdvertisingModalBody = ({ modalCloseHandler }) => {
     );
 };
 
-const OrderModalBody = ({ modalCloseHandler, snackBarOpenhandler }) => {
+const OrderModalBody = ({ modalCloseHandler, snackBarOpenhandler, munuList }) => {
     const [selectedOrder, setSelectedOrder] = useState([]);
+    console.log(selectedOrder)
+
+    const requestOrderToAdmin = async () => {
+        let sendselectedOrders = [];
+        munuList.forEach((menu, index) => {
+            if (selectedOrder.includes(index)) sendselectedOrders.push(menu.menu_name);
+        });
+        const res = await requestOrder({ orderText: sendselectedOrders });
+        console.log(res)
+    };
 
     const orderSubmmit = () => {
+        requestOrderToAdmin();
         modalCloseHandler();
         snackBarOpenhandler();
     };
-
-    const order_list = [
-        '연습장 시간 더 넣어주세요', 
-        '게임 넣어주세요',
-        '플레이어 추가해주세요',
-        '코스매니저가 안돼요',
-        '화면이 깨졌어요',
-        '공이 안나와요',
-        '음료 더 주세요',
-        '티가 부러졌어요',
-        '설정 변경해주세요',
-        '에어컨 켜주세요',
-        '에어컨 꺼주세요',
-        '홀인원 넣어주세요',
-        '잔돈 교환해주세요',
-        '맥주 주세요',
-        '소주요',
-        '과자 주세요',
-        '한 번 와주세요'
-    ];
 
     const selectIndex = (index, exist) => {
         if (exist) {
@@ -321,7 +319,7 @@ const OrderModalBody = ({ modalCloseHandler, snackBarOpenhandler }) => {
 
             <div className={cx('order-modal-body')}>
                 {
-                    order_list.map((order, index) => {
+                    munuList.map((menu, index) => {
                         const exist = selectedOrder.includes(index);
                         return (
                             <div 
@@ -339,11 +337,12 @@ const OrderModalBody = ({ modalCloseHandler, snackBarOpenhandler }) => {
                                     }
                                 </div>
                                 
-                                <p className={cx('order')}>{order}</p>
+                                <p className={cx('order')}>{menu.menu_name}</p>
                             </div>
                         );
                     })
                 }
+                
             </div>
         </div>
     );

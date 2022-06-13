@@ -47,7 +47,10 @@ const MasterLeftSide = ({
     // 업체 삭제 handler
     const adminDeleteHandler = async (data) => {
         const res = await deleteAdmin({ adminId: data.user_id });
-        if (res === 'Delete is Done') getAdminInfo();
+        if (res === 'Delete is Done') {
+            alert('업체 삭제가 완료되었습니다');
+            getAdminInfo();
+        }
     };
 
     // 광고 삭제 handler
@@ -73,6 +76,7 @@ const MasterLeftSide = ({
                     clickHandler={selectedCompanyHandler}
                     selectedIndex={selectedCompanyIndex}
                     deleteHandler={adminDeleteHandler}
+                    keyText={'nickname'}
                     />
             </div>
 
@@ -86,6 +90,7 @@ const MasterLeftSide = ({
                     datas={adList}
                     clickHandler={selectedADHandler}
                     deleteHandler={adDeleteHandler}
+                    keyText={'name'}
                     />
             </div>
         </div>

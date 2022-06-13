@@ -41,7 +41,10 @@ const AdminHoleMoney = ({ price }) => {
             userId: getStorage({ key: 'user_info' }).user_id,
             holeInOnePrice: price
         });
-        if (data === 'Update is Done') setHoleMoney(addCommaInNumber(holeMoney));
+        if (data === 'Update is Done') {
+            alert('홀인원 상금이 변경되었습니다');
+            setHoleMoney(addCommaInNumber(holeMoney));
+        }
     };
 
     const saveHoleMoney = () => {

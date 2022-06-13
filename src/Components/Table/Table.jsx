@@ -19,7 +19,8 @@ const Table = ({
     clickHandler=()=> {}, 
     modifyHandler, 
     selectedIndex,
-    deleteHandler
+    deleteHandler,
+    keyText
 }) => {
 
     return (
@@ -34,6 +35,7 @@ const Table = ({
                         modifyHandler={modifyHandler}
                         selectedIndex={selectedIndex}
                         deleteHandler={() => { deleteHandler(data); }}
+                        keyText={keyText}
                         />)
             }
             {
@@ -50,9 +52,9 @@ const TableContent = ({
     index,
     modifyHandler,
     selectedIndex,
-    deleteHandler
+    deleteHandler,
+    keyText
 }) => {
-    console.log(data)
     const [isModify, setIsModify] = useState(false);
     const inputRef = useRef();
 
@@ -66,7 +68,8 @@ const TableContent = ({
         setInfo({
             isView: true,
             okHandler: () => { deleteHandler(index) },
-            text: `${data.nickname || data.name || data.title} 을(를) 삭제하시겠습니까?`
+            // text: `${data.nickname || data.name || data.title} 을(를) 삭제하시겠습니까?`
+            text: `${data[keyText]} 을(를) 삭제하시겠습니까?`
         });
     };
 
@@ -82,9 +85,9 @@ const TableContent = ({
             <input
                 ref={inputRef}
                 className={cx('content-text')}
-                value={data.nickname || data.name || data.title}
+                value={data[keyText]}
                 disabled={!isModify}
-                title={data.nickname || data.name || data.title}
+                title={data[keyText]}
                 />
 
             <div className={cx('content-btn-wrap')} onClick={(e) => {e.stopPropagation()}}>
