@@ -10,17 +10,17 @@ const axios = Axios.create({
 });
 
 axios.interceptors.request.use((config) => {
-        let token = getStorage({ key: 'user_info' })?.token;
+    let token = getStorage({ key: 'user_info' })?.token;
 
-        const newHeaders = {
-            'authorization': token,
-            'Cache-Control': 'no-cache'
-        };
+    const newHeaders = {
+        'authorization': token,
+        'Cache-Control': 'no-cache'
+    };
 
-        config.headers = newHeaders;
-        
-        return config;
-    },
+    config.headers = newHeaders;
+
+    return config;
+},
     (error) => {
         console.error(error);
         return Promise.reject(error);
@@ -35,11 +35,11 @@ axios.interceptors.response.use(
         // 인증 실패 시 로그아웃
         if (error?.response?.status === 401) {
             alert('Invalid Token');
-            window.location.href="/signin";
+            window.location.href = "/signin";
         }
         if (error?.response?.status === 419) {
             alert('Token has Expired');
-            window.location.href="/signin";
+            window.location.href = "/signin";
         }
 
         return Promise.reject(error.response || error);

@@ -12,6 +12,8 @@ const cx = classNames.bind(styles);
 let tmpOrderList = [];
 
 const AdminPage = () => {
+    const [isRendering, setIsRendering] = useState(false);
+
     const [pageInfo, setPageInfo] = useState({
         holeInOne: null,
         menuList: [],
@@ -20,12 +22,24 @@ const AdminPage = () => {
     const [orderList, setOrderList] = useState([]);
 
     const getAdminInfo = async () => {
+        const userInfo = getStorage({ key: 'user_info' });
+        // 유저가 정보 체크후 없으면 로그인 페이지
+        if (!userInfo) window.location.href="/signin";
+        
+        if (userInfo.user_type === 'Masto') {
+            alert('master의 접근이 금지되어있습니다');
+            window.location.href="/signin";
+        }else if (userInfo.user_type === 'client') {
+            alert('접근 권한이 없습니다');
+            window.location.href="/signin";
+        }
+        
         const res = await getAdminPageInfo({
-            userId: getStorage({ key: 'user_info' }).user_id
+            userId: userInfo.user_id
         });
 
         if (res === 'Not Have Authority') {
-            alert('권한이 없습니다.');
+            alert('접근권한이 없습니다.');
             window.location.href="/signin";
         }
 
@@ -37,6 +51,7 @@ const AdminPage = () => {
 
         tmpOrderList = res.order_list;
 
+        setIsRendering(true);
         setOrderList(res.order_list);
     };
     
@@ -82,16 +97,22 @@ const AdminPage = () => {
         setInterval(getOrderListFunc, 2000);
     }, []);
 
-    return (
-        <div className={cx('admin-container')}>
-            <AdminSettingSide
-                pageInfo={pageInfo}
-                refreshMenuList={refreshMenuList}
-                refreshClientList={refreshClientList}
-                />
-            <AdminJobList orderList={orderList} getOrderListFunc={getOrderListFunc} />
-        </div>
-    );
+    if (isRendering) {
+        return (
+            <div className={cx('admin-container')}>
+                <AdminSettingSide
+                    pageInfo={pageInfo}
+                    refreshMenuList={refreshMenuList}
+                    refreshClientList={refreshClientList}
+                    />
+                <AdminJobList orderList={orderList} getOrderListFunc={getOrderListFunc} />
+            </div>
+        );
+    } else {
+        return (
+            <></>
+        );
+    }
 };
 
 export default AdminPage;

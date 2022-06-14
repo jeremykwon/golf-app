@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
 
 import { completeOrder } from 'Lib/api';
 
@@ -17,20 +17,12 @@ const AdminJobList = ({ orderList }) => {
         </div>
     );
 };
-// log_id
 
 const JobLsitComponent = ({ orderList }) => {
+    const reverseOrderList = useMemo(() => {
+        return [...orderList].reverse();
+    }, [orderList]);
     const [checkedIdList, setCheckedIdList] = useState([]);
-
-    // const makeOrderList = useMemo(() => {
-    //     return orderList.map(order => {
-    //         return {
-    //             ...order,
-    //             checked: false
-    //         }
-    //     });
-    // }, [orderList]);
-    // console.log(makeOrderList)
 
     const addCheckedId = (id) => {
         setCheckedIdList([...checkedIdList, id]);
@@ -43,21 +35,21 @@ const JobLsitComponent = ({ orderList }) => {
             addCheckedId(order.log_id);
         }
     };
-
+    
     return (
         <div className={cx('job-list-content-container')}>
             {
-                orderList.map((order, index) => {
+                reverseOrderList.map((order, index) => {
                     return (
                         <div key={index} className={cx('job-container')}>
                             <div className={cx('job-time-wrap')}>
-                                <p className={cx('job-time-text')}>13:00</p>
-                                <p className={cx('job-date-text')}>2022-05-10</p>
+                                <p className={cx('job-time-text')}>{order.logtime.split('T')[1].split('.')[0]}</p>
+                                <p className={cx('job-date-text')}>{order.logtime.split('T')[0]}</p>
                             </div>
                             
                             <div className={cx('job-box')}>
                                 <div className={cx('job-box-header')}>
-                                    <p className={cx('room-name')}>1111</p>
+                                    <p className={cx('room-name')}>{order.nickname}</p>
                                 
                                     <div className={cx('job-btn-wrap')}>
                                         <IconButton 

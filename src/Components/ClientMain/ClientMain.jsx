@@ -1,4 +1,5 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useMemo } from 'react';
+import { useNavigate } from "react-router-dom";
 
 import { requestOrder } from 'Lib/api';
 
@@ -8,12 +9,20 @@ import styles from './styles.module.scss';
 import Snackbar from '@mui/material/Snackbar';
 import MuiAlert from '@mui/material/Alert';
 
+import { logout } from 'Lib/Logout';
+import { getStorage } from 'Lib/Storage';
+import { login } from 'Lib/api';
+
 import MenuIcon from '@mui/icons-material/Menu';
 import QuestionAnswerIcon from '@mui/icons-material/QuestionAnswer';
 import LogoutIcon from '@mui/icons-material/Logout';
 import RoomServiceIcon from '@mui/icons-material/RoomService';
 import CheckIcon from '@mui/icons-material/Check';
 import ListItemIcon from '@mui/material/ListItemIcon';
+
+import CircularProgress from '@mui/material/CircularProgress';
+import AccountCircle from '@mui/icons-material/AccountCircle';
+import KeyIcon from '@mui/icons-material/Key';
 
 import { 
     Button,
@@ -24,7 +33,8 @@ import {
     List,
     ListItem,
     ListItemText,
-    Divider
+    Divider,
+    TextField
 } from '@mui/material';
 
 const cx = classNames.bind(styles);
@@ -61,10 +71,17 @@ const ClientMain = ({ clientInfo }) => {
     };
 
     const modalOpenHandler = (type) => {
-        if (['주문', '광고 문의'].includes(type)) setModalInfo({
-            isOpen: true,
-            type
-        });
+        if (['주문', '광고 문의'].includes(type)) {
+            setModalInfo({
+                isOpen: true,
+                type
+            });
+        } else if (['로그아웃'].includes(type)) {
+            setModalInfo({
+                isOpen: true,
+                type
+            });
+        }
     };
 
     const modalCloseHandler = (type) => {
@@ -73,7 +90,9 @@ const ClientMain = ({ clientInfo }) => {
             type: ''
         });
     };
-    
+
+    console.log(clientInfo)
+
     return (
         <>
             <Snackbar anchorOrigin={{ vertical: 'bottom', horizontal: 'center' }} open={open} autoHideDuration={4000} onClose={snackBarClosehandler}>
@@ -102,15 +121,19 @@ const ClientMain = ({ clientInfo }) => {
                             <OrderModalBody
                                 snackBarOpenhandler={snackBarOpenhandler}
                                 modalCloseHandler={modalCloseHandler}
-                                munuList={clientInfo.menuList}
+                                menuList={clientInfo.menuList}
+                                />
+                    }
+                    {
+                        modalInfo.type === '로그아웃' && 
+                            <LoginModalBody
+                                modalCloseHandler={modalCloseHandler}
                                 />
                     }
                 </>
             </Modal>
 
-            <div
-                className={cx('main-container')}
-                >
+            <div className={cx('main-container')}>
                 <Button
                     className={cx('menu-btn')}
                     variant="contained"
@@ -125,22 +148,53 @@ const ClientMain = ({ clientInfo }) => {
                     open={isOpenMenu}
                     onClose={toggleDrawer}
                 >
-                    <MenuItems toggleDrawer={toggleDrawer} modalOpenHandler={modalOpenHandler} />
+                    <MenuItems
+                        toggleDrawer={toggleDrawer}
+                        modalOpenHandler={modalOpenHandler}
+                        />
                 </Drawer>
                 
                 <HoleInOne price={clientInfo.holinonePrice} />
 
-                <video
-                    className={cx('ad-video')}
-                    autoPlay
-                    muted
-                    loop
-                    >
-                    <source src='https://www.kobaco.co.kr/site/main/file/stream/uu/08f6d66163d44bbda38ca568e3497a5b' type="video/mp4" />
-                </video>
+                <AdView adList={clientInfo.adList} />
             </div>
         </>
     );
+};
+
+const AdView = ({ adList }) => {
+    const [adIndex, setAddindex] = useState(0);
+
+    const nextAd = () => {
+        let adLength = adList.length;
+        if (adLength === adIndex + 1) setAddindex(0);
+        else setAddindex(adIndex + 1);
+    };
+
+    useEffect(() => {
+        if (adList[adIndex].type === 0) {
+            setTimeout(nextAd, 3000);
+        }
+    }, [adIndex]);
+
+    if (adList[adIndex].type === 0) {
+        return (
+            <img className={cx('ad-img')} src={adList[adIndex].url} />
+        );
+    } else {
+        return (
+            <video
+                className={cx('ad-video')}
+                autoPlay
+                muted
+                onEnded={nextAd}
+                // loop
+                >
+                {/* <source src='https://www.kobaco.co.kr/site/main/file/stream/uu/08f6d66163d44bbda38ca568e3497a5b' type="video/mp4" /> */}
+                <source src={adList[adIndex].url} type="video/mp4" />
+            </video>
+        );
+    }
 };
 
 const MenuItems = ({ toggleDrawer, modalOpenHandler }) => {
@@ -199,12 +253,23 @@ const MenuItems = ({ toggleDrawer, modalOpenHandler }) => {
                     ))
                 }
             </List>
+
+            <p style={{ 
+                position: 'fixed',
+                bottom: '5px',
+                left: '5px',
+                fontSize: '15px',
+                width: '240px',
+                overflow: 'hidden',
+                textAlign: 'center'
+                }}>
+                    {getStorage({ key: 'user_info' }).nickname}
+                </p>
         </Box>
     );
 };
 
 const HoleInOne = ({ price }) => {
-
     useEffect(() => {
         const numberCounter = (target_frame, target_number)  => {
             let count = 0; 
@@ -230,7 +295,7 @@ const HoleInOne = ({ price }) => {
             counter();
         };
         numberCounter("counter1", price);
-    }, []);
+    }, [price]);
 
     return (
         <div className={cx('hole-container')}>
@@ -241,6 +306,112 @@ const HoleInOne = ({ price }) => {
                     <pre className={cx('hole-cost-won')}> 원</pre>
                 -
             </div>
+        </div>
+    );
+};
+
+const LoginModalBody = ({ modalCloseHandler }) => {
+    const [userInfo, setUserInfo] = useState({ id: '', pw: '' });
+    const [isError, setIsError] = useState(false);
+    const [isLoading, setIsLoading] = useState(false);
+    
+    const disabledLoginButton = useMemo(() => {
+        if (userInfo.id === '' || userInfo.pw === '') return true;
+        else return false;
+    }, [userInfo]);
+
+    const navigate = useNavigate();
+
+    /* id, pw 초기화 */
+    const initUserInfo = () => {
+        setUserInfo({ id: '', pw: '' });
+    };
+
+    /* 엔터키를 통해 로그인 */
+    const keyboardEvent = (e) => {
+        if (disabledLoginButton) return;
+
+        if (e.key === 'Enter') signIn();
+    };
+
+    /* 로그인 */
+    const signIn = async () => {
+        setIsLoading(true);
+
+        const data = await login({
+            id: userInfo.id,
+            password: userInfo.pw
+        });
+
+        if (data.user_type === 1 || data.user_type === 2) {
+            logout();
+            window.location.href="/signin";
+        } else {
+            initUserInfo();
+            setIsError('아이디와 비밀번호를 확인하세요.');
+        }
+
+        setIsLoading(false);
+    };
+
+    /* 유저 아이디 업데이트 */
+    const changeUserId = (e) => {
+        setUserInfo({
+            id: e.target.value,
+            pw: userInfo.pw
+        });
+    };
+
+    /* 유저 비밀번호 업데이트 */
+    const changeUserPw = (e) => {
+        setUserInfo({
+            id: userInfo.id,
+            pw: e.target.value
+        });
+    };
+    
+    return (
+        <div className={cx('login-wrap')}>
+            <div className={cx('input-wrap')}>
+                <AccountCircle sx={{ color: 'action.active', mr: 1, my: 0.5 }} />
+                <TextField 
+                    fullWidth
+                    onChange={changeUserId}
+                    id="input-with-sx"
+                    label="아이디"
+                    variant="standard"
+                    type="search"
+                    value={userInfo.id}
+                    onKeyUp={keyboardEvent}
+                    />
+            </div>
+            
+            <div className={cx('input-wrap')}>
+                <KeyIcon sx={{ color: 'action.active', mr: 1, my: 0.5 }} />
+                <TextField
+                    onChange={changeUserPw}
+                    fullWidth
+                    id="input-with-sx"
+                    label="비밀번호"
+                    variant="standard"
+                    value={userInfo.pw}
+                    type='password'
+                    onKeyUp={keyboardEvent}
+                />
+            </div>
+            
+            <p className={cx('error-msg')}>{ isError && '아이디와 비밀번호를 확인하세요'}</p>
+
+            <Button
+                className={cx('input-wrap')}
+                variant="contained"
+                onClick={signIn}
+                disabled={disabledLoginButton}
+                >
+                    {
+                        isLoading ? <CircularProgress size={25} color="inherit" /> : '로그인'
+                    }
+            </Button>
         </div>
     );
 };
@@ -261,7 +432,7 @@ const AdvertisingModalBody = ({ modalCloseHandler }) => {
                     <Button
                         onClick={modalCloseHandler}
                         className={cx('ad-modal-ok-btn')}
-                        >o k
+                        >확인
                     </Button>
                 </div>
             </div>
@@ -269,21 +440,26 @@ const AdvertisingModalBody = ({ modalCloseHandler }) => {
     );
 };
 
-const OrderModalBody = ({ modalCloseHandler, snackBarOpenhandler, munuList }) => {
+const OrderModalBody = ({ modalCloseHandler, snackBarOpenhandler, menuList }) => {
     const [selectedOrder, setSelectedOrder] = useState([]);
-    console.log(selectedOrder)
 
     const requestOrderToAdmin = async () => {
         let sendselectedOrders = [];
-        munuList.forEach((menu, index) => {
+        menuList.forEach((menu, index) => {
             if (selectedOrder.includes(index)) sendselectedOrders.push(menu.menu_name);
         });
-        const res = await requestOrder({ orderText: sendselectedOrders });
-        console.log(res)
+        return await requestOrder({ orderText: sendselectedOrders });
+        
     };
 
-    const orderSubmmit = () => {
-        requestOrderToAdmin();
+    const orderSubmmit = async () => {
+        const res = await requestOrderToAdmin();
+        
+        if (res !== 'Ordering is Success') {
+            alert('주문 오류 관리자에게 문의하세요');
+            return;
+        }
+
         modalCloseHandler();
         snackBarOpenhandler();
     };
@@ -319,7 +495,7 @@ const OrderModalBody = ({ modalCloseHandler, snackBarOpenhandler, munuList }) =>
 
             <div className={cx('order-modal-body')}>
                 {
-                    munuList.map((menu, index) => {
+                    menuList.map((menu, index) => {
                         const exist = selectedOrder.includes(index);
                         return (
                             <div 

@@ -117,7 +117,7 @@ const AdminSettingSide = ({ pageInfo, refreshMenuList, refreshClientList }) => {
                 </div>
                 
                 <div className={cx('setting-side-content-wrap')}>
-                    <AdminTitle title={'주문 관리'} addHandler={addOrderHandler} />
+                    <AdminTitle title={'주문 관리'} addHandler={addOrderHandler} isSelected={isAddOrder} />
 
                     {
                         isAddOrder &&
@@ -133,7 +133,7 @@ const AdminSettingSide = ({ pageInfo, refreshMenuList, refreshClientList }) => {
 
                 {/* 방관리 */}
                 <div className={cx('setting-side-content-wrap')}>
-                    <AdminTitle title={'방 관리'} addHandler={addRoomHandler} />
+                    <AdminTitle title={'방 관리'} addHandler={addRoomHandler} isSelected={isAddRoom} />
                     {
                         isAddRoom &&
                             <AddRoomComponent

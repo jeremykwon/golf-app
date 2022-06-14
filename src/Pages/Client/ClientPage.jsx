@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 
 import { Advertising, ClientMain } from 'Components';
 import { getClientInfo } from 'Lib/api';
+import { getStorage } from 'Lib/Storage';
 
 // import classNames from 'classnames/bind';
 // import styles from './styles.module.scss';
@@ -9,6 +10,8 @@ import { getClientInfo } from 'Lib/api';
 // const cx = classNames.bind(styles);
 
 const ClientPage = () => {
+    const [isRendering, setIsRendering] = useState(false);
+
     const [isAdView, setIsAdView] = useState(false); // 개발시 false
     const [clientInfo, setClientInfo] = useState({
         adList: [],
@@ -17,8 +20,15 @@ const ClientPage = () => {
     });
 
     const getClientInfoFunc = async () => {
+        const userInfo = getStorage({ key: 'user_info' });
+
+        if (!userInfo) window.location.href="/signin";
+        if (userInfo.user_type !== 'client') {
+            alert('admin, master의 접근이 금지되어있습니다');
+            window.location.href="/signin";
+        }
+
         const res = await getClientInfo();
-        console.log(res);
 
         if (res.ad_list) {
             setClientInfo({
@@ -26,25 +36,30 @@ const ClientPage = () => {
                 menuList: res.menu_list,
                 holinonePrice: res.set_holeinone
             });
+            setIsRendering(true);
         }
     };
 
     useEffect(() => {
         getClientInfoFunc();
     }, []);
-    
 
-    return (
-        <>
-            {/* <Advertising setIsAdView={setIsAdView} isAdView={isAdView} /> */}
-            {/* { !isAdView && <ClientMain setIsAdView={setIsAdView} isAdView={isAdView} />} */}
-            <ClientMain 
-                // setIsAdView={setIsAdView}
-                // isAdView={isAdView}
-                clientInfo={clientInfo}
-                />
-        </>
-    );
+    if (isRendering) {
+        return <ClientMain clientInfo={clientInfo} />;
+    } else {
+        return <></>;
+    }
+    // return (
+    //     <>
+    //         {/* <Advertising setIsAdView={setIsAdView} isAdView={isAdView} /> */}
+    //         {/* { !isAdView && <ClientMain setIsAdView={setIsAdView} isAdView={isAdView} />} */}
+    //         <ClientMain 
+    //             // setIsAdView={setIsAdView}
+    //             // isAdView={isAdView}
+    //             clientInfo={clientInfo}
+    //             />
+    //     </>
+    // );
 };
 
 export default ClientPage;
