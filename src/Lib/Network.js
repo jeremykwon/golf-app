@@ -46,12 +46,14 @@ axios.interceptors.response.use(
     }
 );
 
-const sendAPI = async ({ url, method = 'get', data = {} }) => {
+const sendAPI = async ({ url, method = 'get', data = {}, headers = { 'Content-Type': 'application/json' } }) => {
+    console.log(headers)
     try {
         return await axios({
             url: `${url}`,
             method,
-            data
+            data,
+            headers
         });
     } catch (err) {
         if (err?.data?.response?.message === 'Not Found User.') {

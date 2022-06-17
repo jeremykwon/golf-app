@@ -1,17 +1,18 @@
-import React, { useState } from 'react';
+import React from 'react';
 
 import { alertMp3 } from 'Asset';
 
-const Test = ({ text }) => {
-    function button_click() {
-        const audio = new Audio(alertMp3);
+const audio = new Audio(alertMp3);
+
+const Test = ({ text, children } ) => {
+    const button_click = () => {
         audio.play();
     }
     
     return (
         <>
             <button onClick={button_click}>
-                { text }
+                { children }
             </button>
         </>
         

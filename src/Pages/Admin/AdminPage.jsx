@@ -2,10 +2,10 @@ import React, { useState, useEffect } from 'react';
 import classNames from 'classnames/bind';
 import styles from './styles.module.scss';
 
+import { alertMp3 } from 'Asset';
 import { AdminSettingSide, AdminJobList } from 'Components';
 import { getAdminPageInfo, getAdminMenu, getClientList, getOrderList } from 'Lib/api';
 import { getStorage } from 'Lib/Storage';
-
 
 const cx = classNames.bind(styles);
 
@@ -21,6 +21,12 @@ const AdminPage = () => {
     });
     const [orderList, setOrderList] = useState([]);
 
+    const playAlertSound = () => {
+        const audio = new Audio(alertMp3);
+        audio.play();
+    };
+
+    // 처음에 정보를 받아옴
     const getAdminInfo = async () => {
         const userInfo = getStorage({ key: 'user_info' });
         // 유저가 정보 체크후 없으면 로그인 페이지
@@ -55,16 +61,20 @@ const AdminPage = () => {
         setOrderList(res.order_list);
     };
     
+    // 주기적으로 주문을 받아옴
     const getOrderListFunc = async () => {
         const res = await getOrderList();
 
         if (res.order_list) {
             tmpOrderList = [...tmpOrderList, ...res.order_list];
             setOrderList(tmpOrderList);
+
+            if (res.order_list.length > 0) playAlertSound();
         } else {
             alert('주문 리스트 불러오기 에러');
         }
     };
+    
 
     const refreshMenuList = async () => {
         const res = await getAdminMenu();
@@ -105,7 +115,10 @@ const AdminPage = () => {
                     refreshMenuList={refreshMenuList}
                     refreshClientList={refreshClientList}
                     />
-                <AdminJobList orderList={orderList} getOrderListFunc={getOrderListFunc} />
+                <AdminJobList
+                    orderList={orderList}
+                    getOrderListFunc={getOrderListFunc}
+                    />
             </div>
         );
     } else {

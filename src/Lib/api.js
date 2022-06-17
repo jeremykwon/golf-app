@@ -105,6 +105,27 @@ const deleteAdmin = async ({ adminId }) => {
         throw err;
     }
 };
+
+const createAD = async ({ formData }) => {
+    for (let key of formData.keys()) {
+        console.log(key, ":", formData.get(key));
+    }
+    try {
+        const res = await sendAPI({
+            url: '/master/advert',
+            method: 'post',
+            headers: {
+                "Content-Type": "multipart/form-data",
+            },
+            data: formData
+        });
+
+        return res.data;
+    } catch (err) {
+        alert('업체 생성 오류 관리자에게 문의하세요');
+        throw err;
+    }
+};
 /*************** MASTER FINISH ***************/
 
 
@@ -331,16 +352,19 @@ const login = async ({
 };
 /*************** COMMON FINISH ***************/
 
-export { 
+export {
     login,
 
+    // master
     makeAdmin,
-    deleteAdmin, 
-    getAllADInfo, 
-    getAdminADInfo, 
+    deleteAdmin,
+    getAllADInfo,
+    getAdminADInfo,
     getAllAdminInfo,
     modifyADOfAdmin,
+    createAD,
 
+    // admin
     getAdminPageInfo,
     getAdminMenu,
     // getHoleInOnePrice,
@@ -353,6 +377,7 @@ export {
     getOrderList,
     completeOrder,
 
+    // client
     getClientInfo,
     requestOrder
 };

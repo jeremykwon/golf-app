@@ -5,7 +5,7 @@ import styles from './styles.module.scss';
 import { Table, AdminTitle } from 'Components';
 import { Button, TextField } from '@mui/material';
 
-import { makeAdmin, deleteAdmin } from 'Lib/api';
+import { makeAdmin, deleteAdmin, createAD } from 'Lib/api';
 
 const cx = classNames.bind(styles);
 
@@ -60,6 +60,15 @@ const MasterLeftSide = ({
         // if (res === 'Delete is Done') getAdminInfo();
     };
 
+    const addADHandler = async () => {
+        const formData = new FormData();
+        formData.append('ad_name', 'test');
+        formData.append('file', 'test');
+
+        const res = await createAD({ formData });
+        if (res === 'Delete is Done') getAdminInfo();
+    };
+
     return (
         <div className={cx('master-left-side-container')}>
             <div className={cx('content-wrap')}>
@@ -84,7 +93,7 @@ const MasterLeftSide = ({
                 <AdminTitle title={'광고 관리'} addHandler={addAdvertisingHandler} isSelected={isAddAdvertising} />
                 {
                     isAddAdvertising &&
-                        <AddAdvertisingComponent />
+                        <AddAdvertisingComponent addADHandler={addADHandler} />
                 }
                 <Table
                     datas={adList}
@@ -97,7 +106,7 @@ const MasterLeftSide = ({
     );
 };
 
-const AddAdvertisingComponent = () => {
+const AddAdvertisingComponent = ({ addADHandler }) => {
     const [fileName, setFileName] = useState('');
 
     const clickUploadBtn = () => {
@@ -145,6 +154,7 @@ const AddAdvertisingComponent = () => {
             />
 
             <Button 
+                onClick={addADHandler}
                 className={cx('company-save-btn')}
                 variant="contained"
                 >
