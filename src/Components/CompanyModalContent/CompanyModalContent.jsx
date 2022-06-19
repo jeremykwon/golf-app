@@ -34,13 +34,6 @@ const CompanyModalContent = ({ modalClose, selectedCompany, adList }) => {
     };
 
     const saveBtnClickHandler = () => {
-        // let index = 0;
-        // let tmpSelectedAdList = [];
-        // for (let checkbox of formGroup.current.children) {
-        //     if (checkbox.control.checked) tmpSelectedAdList.push(adList[index].ad_id);
-        //     index++;
-        // }
-
         if (adModify()) modalClose();
         else alert('광고 등록 에러');
     };
@@ -63,11 +56,9 @@ const CompanyModalContent = ({ modalClose, selectedCompany, adList }) => {
             
             <FormGroup
                 className={cx('check-box-wrap')}
-                // ref={formGroup}
                 >
                 {
                     adList.map((ad) => {
-                        // console.log(selectedAdIdList.includes(ad.ad_id))
                         return (
                             <FormControlLabel
                                 key={ad.ad_id}

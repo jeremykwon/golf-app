@@ -14,7 +14,7 @@ import AdminHoleMoney from './AdminHoleMoney/AdminHoleMoney';
 // master
 import MasterLeftSide from './MasterLeftSide/MasterLeftSide';
 import CompanyModalContent from './CompanyModalContent/CompanyModalContent';
-import AdvertisingModalContent from './AdvertisingModalContent/AdvertisingMidalContent';
+import AdvertisingModalContent from './AdvertisingModalContent/AdvertisingModalContent';
 
 // common
 import Alert from './Common/Alert';

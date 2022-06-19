@@ -47,7 +47,6 @@ axios.interceptors.response.use(
 );
 
 const sendAPI = async ({ url, method = 'get', data = {}, headers = { 'Content-Type': 'application/json' } }) => {
-    console.log(headers)
     try {
         return await axios({
             url: `${url}`,

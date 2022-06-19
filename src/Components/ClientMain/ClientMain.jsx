@@ -59,10 +59,7 @@ const ClientMain = ({ clientInfo }) => {
     };
 
     const snackBarClosehandler = (event, reason) => {
-        if (reason === 'clickaway') {
-        return;
-        }
-
+        if (reason === 'clickaway') return;
         setOpen(false);
     };
 
@@ -90,8 +87,6 @@ const ClientMain = ({ clientInfo }) => {
             type: ''
         });
     };
-
-    console.log(clientInfo)
 
     return (
         <>
@@ -154,7 +149,9 @@ const ClientMain = ({ clientInfo }) => {
                         />
                 </Drawer>
                 
-                <HoleInOne price={clientInfo.holinonePrice} />
+                {
+                    clientInfo.holinonePrice !== 0 && <HoleInOne price={clientInfo.holinonePrice} />
+                }
 
                 <AdView adList={clientInfo.adList} />
             </div>
@@ -162,6 +159,7 @@ const ClientMain = ({ clientInfo }) => {
     );
 };
 
+/* 광고 */
 const AdView = ({ adList }) => {
     const [adIndex, setAddindex] = useState(0);
 
@@ -179,20 +177,24 @@ const AdView = ({ adList }) => {
 
     if (adList[adIndex].type === 0) {
         return (
-            <img className={cx('ad-img')} src={adList[adIndex].url} />
+            <div className={cx('ad-wrap')}>
+                <img className={cx('ad-img')} src={adList[adIndex].url} />
+            </div>
         );
     } else {
         return (
-            <video
-                className={cx('ad-video')}
-                autoPlay
-                muted
-                onEnded={nextAd}
-                // loop
-                >
-                {/* <source src='https://www.kobaco.co.kr/site/main/file/stream/uu/08f6d66163d44bbda38ca568e3497a5b' type="video/mp4" /> */}
-                <source src={adList[adIndex].url} type="video/mp4" />
-            </video>
+            <div className={cx('ad-wrap')}>
+                <video
+                    className={cx('ad-video')}
+                    autoPlay
+                    muted
+                    onEnded={nextAd}
+                    // loop
+                    >
+                    {/* <source src='https://www.kobaco.co.kr/site/main/file/stream/uu/08f6d66163d44bbda38ca568e3497a5b' type="video/mp4" /> */}
+                    <source src={adList[adIndex].url} type="video/mp4" />
+                </video>
+            </div>
         );
     }
 };

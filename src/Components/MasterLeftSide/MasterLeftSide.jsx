@@ -5,7 +5,9 @@ import styles from './styles.module.scss';
 import { Table, AdminTitle } from 'Components';
 import { Button, TextField } from '@mui/material';
 
-import { makeAdmin, deleteAdmin, createAD } from 'Lib/api';
+import CircularProgress from '@mui/material/CircularProgress';
+
+import { makeAdmin, deleteAdmin, createAD, deleteAD } from 'Lib/api';
 
 const cx = classNames.bind(styles);
 
@@ -55,18 +57,23 @@ const MasterLeftSide = ({
 
     // 광고 삭제 handler
     const adDeleteHandler = async (data) => {
-        // TODO: 광고 삭제 로직 추가
-        // const res = await deleteAdmin({ adminId: data.user_id });
-        // if (res === 'Delete is Done') getAdminInfo();
+        const res = await deleteAD({ adID: data.ad_id });
+        if (res === 'Delete is Done') {
+            alert('광고가 삭제되었습니다');
+            getADInfo();
+        }
     };
 
-    const addADHandler = async () => {
+    const addADHandler = async (fileName, file) => {
         const formData = new FormData();
-        formData.append('ad_name', 'test');
-        formData.append('file', 'test');
+        formData.append('ad_name', fileName);
+        formData.append('file', file);
 
         const res = await createAD({ formData });
-        if (res === 'Delete is Done') getAdminInfo();
+        if (res.ad_list) {
+            alert('광고가 저장되었습니다');
+            getADInfo();
+        } else alert('광고 저장 에러');
     };
 
     return (
@@ -107,10 +114,28 @@ const MasterLeftSide = ({
 };
 
 const AddAdvertisingComponent = ({ addADHandler }) => {
-    const [fileName, setFileName] = useState('');
+    const [adName, setAdName] = useState('');
+    const [isLoading, setIsLoading] = useState(false);
+    const [fileInfo, setFileInfo] = useState({
+        name: '',
+        file: null,
+    });
 
     const clickUploadBtn = () => {
         document.getElementById('file_upload_input').click();
+    };
+
+    const changeFile = (e) => {
+        setFileInfo({
+            name: e.target.files[0].name,
+            file: e.target.files[0]
+        });
+    };
+
+    const submmitFile = async () => {
+        setIsLoading(true);
+        await addADHandler(adName, fileInfo.file);
+        setIsLoading(false);
     };
 
     return (
@@ -120,6 +145,8 @@ const AddAdvertisingComponent = ({ addADHandler }) => {
                 fullWidth
                 label="광고 명"
                 size="small"
+                value={adName}
+                onChange={(e) => {setAdName(e.target.value)}}
             />
 
             <div className={cx('file-upload-wrap')}>
@@ -128,7 +155,7 @@ const AddAdvertisingComponent = ({ addADHandler }) => {
                     fullWidth
                     label="파일 명"
                     // onChange={holeMoneyChange}
-                    value={fileName}
+                    value={fileInfo.name}
                     size="small"
                     disabled
                 />
@@ -147,18 +174,19 @@ const AddAdvertisingComponent = ({ addADHandler }) => {
                 label="광고 명"
                 size="small"
                 type='file'
-                onChange={(e) => {
-                    setFileName(e.target.value)
-                }}
+                onChange={changeFile}
                 id='file_upload_input'
             />
 
             <Button 
-                onClick={addADHandler}
+                onClick={submmitFile}
                 className={cx('company-save-btn')}
                 variant="contained"
+                disabled={adName === '' || !fileInfo.file}
                 >
-                추가
+                {
+                    isLoading ? <CircularProgress size={25} color="inherit" /> : '추가'
+                }
             </Button>
         </div>
     );

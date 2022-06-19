@@ -71,8 +71,6 @@ const AdminSettingSide = ({ pageInfo, refreshMenuList, refreshClientList }) => {
     return (
         <>
             <Modal
-                // onClick={active}
-                // onTouchEnd={active}
                 className={cx('modal-container')}
                 aria-labelledby="transition-modal-title"
                 aria-describedby="transition-modal-description"
@@ -86,15 +84,22 @@ const AdminSettingSide = ({ pageInfo, refreshMenuList, refreshClientList }) => {
                 <div className={cx('modal-content')}>
                     <div className={cx('modal-text-wrap')}>
                         <p className={cx('modal-title')}>ID</p>
-                        <p className={cx('modal-text')}>{tmpRoomDatas[selectedRoomIndex]?.id}</p>
+                        <p className={cx('modal-text')}>{pageInfo.clientList[selectedRoomIndex]?.login_id}</p>
                     </div>
 
                     <div className={cx('modal-text-wrap')}>
                         <p className={cx('modal-title')}>RoomName</p>
-                        <p className={cx('modal-text')}>{tmpRoomDatas[selectedRoomIndex]?.title}</p>
+                        <div className={cx('modal-ok-btn-wrap')}>
+                        <p className={cx('modal-text')}>{pageInfo.clientList[selectedRoomIndex]?.nickname}</p>
+                            <Button
+                                className={cx('modal-ok-btn')}
+                                onClick={ininRoomIndex}
+                                >o k
+                                </Button>
+                        </div>
                     </div>
                     
-                    <div className={cx('modal-text-wrap')}>
+                    {/* <div className={cx('modal-text-wrap')}>
                         <p className={cx('modal-title')}>PassWord</p>
                         <div className={cx('modal-ok-btn-wrap')}>
                             <p className={cx('modal-text')}>{tmpRoomDatas[selectedRoomIndex]?.pw}</p>
@@ -104,7 +109,7 @@ const AdminSettingSide = ({ pageInfo, refreshMenuList, refreshClientList }) => {
                                 >o k
                                 </Button>
                         </div>
-                    </div>
+                    </div> */}
                 </div>
             </Modal>
 

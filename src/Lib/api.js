@@ -106,10 +106,8 @@ const deleteAdmin = async ({ adminId }) => {
     }
 };
 
+// 광고 추가
 const createAD = async ({ formData }) => {
-    for (let key of formData.keys()) {
-        console.log(key, ":", formData.get(key));
-    }
     try {
         const res = await sendAPI({
             url: '/master/advert',
@@ -122,7 +120,22 @@ const createAD = async ({ formData }) => {
 
         return res.data;
     } catch (err) {
-        alert('업체 생성 오류 관리자에게 문의하세요');
+        alert('광고 생성 오류 관리자에게 문의하세요');
+        throw err;
+    }
+};
+
+// 광고 삭제
+const deleteAD = async ({ adID }) => {
+    try {
+        const res = await sendAPI({
+            url: `/master/advert?ad_id=${adID}`,
+            method: 'delete',
+        });
+
+        return res.data;
+    } catch (err) {
+        alert('광고 삭제 오류 관리자에게 문의하세요');
         throw err;
     }
 };
@@ -363,6 +376,7 @@ export {
     getAllAdminInfo,
     modifyADOfAdmin,
     createAD,
+    deleteAD,
 
     // admin
     getAdminPageInfo,
