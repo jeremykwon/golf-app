@@ -1,0 +1,18 @@
+{
+  "files": {
+    "main.css": "/static/css/main.0632476a.css",
+    "main.js": "/static/js/main.83d05625.js",
+    "static/js/787.a86f3764.chunk.js": "/static/js/787.a86f3764.chunk.js",
+    "static/media/test.mp4": "/static/media/test.d1ea37fc53637f91aa97.mp4",
+    "static/media/Landscape-Color.jpg": "/static/media/Landscape-Color.15acb824bff477d61d20.jpg",
+    "static/media/alert.mp3": "/static/media/alert.aceb025f3ebf3996f137.mp3",
+    "index.html": "/index.html",
+    "main.0632476a.css.map": "/static/css/main.0632476a.css.map",
+    "main.83d05625.js.map": "/static/js/main.83d05625.js.map",
+    "787.a86f3764.chunk.js.map": "/static/js/787.a86f3764.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.0632476a.css",
+    "static/js/main.83d05625.js"
+  ]
+}
