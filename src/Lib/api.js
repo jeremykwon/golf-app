@@ -349,7 +349,7 @@ const login = async ({
 }) => {
     try {
         const res = await sendAPI({
-            url: '/common/login',
+            url: '/common/login/',
             method: 'post',
             data: {
                 id,
