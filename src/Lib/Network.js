@@ -2,7 +2,7 @@ import Axios, { AxiosInstance } from 'axios';
 import { getStorage } from 'Lib/Storage';
 
 const axios = Axios.create({
-    // baseURL: `http://43.200.24.118:10009`,
+    baseURL: `http://43.200.94.166:9000`,
     // baseURL: ``,
     // headers: { 
     //     'Cache-Control': 'no-cache',
