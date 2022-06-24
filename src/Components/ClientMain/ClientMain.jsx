@@ -169,34 +169,42 @@ const AdView = ({ adList }) => {
         else setAddindex(adIndex + 1);
     };
 
+    // 광고 변경
     useEffect(() => {
         if (adList[adIndex].type === 0) {
-            setTimeout(nextAd, 3000);
+            setTimeout(nextAd, 10000);
+        } else {
+            const currentVideo = document.getElementById(`video_${adIndex}`); 
+            currentVideo.play();
         }
     }, [adIndex]);
 
-    if (adList[adIndex].type === 0) {
-        return (
-            <div className={cx('ad-wrap')}>
-                <img className={cx('ad-img')} src={adList[adIndex].url} />
-            </div>
-        );
-    } else {
-        return (
-            <div className={cx('ad-wrap')}>
-                <video
-                    className={cx('ad-video')}
-                    autoPlay
-                    muted
-                    onEnded={nextAd}
-                    // loop
-                    >
-                    {/* <source src='https://www.kobaco.co.kr/site/main/file/stream/uu/08f6d66163d44bbda38ca568e3497a5b' type="video/mp4" /> */}
-                    <source src={adList[adIndex].url} type="video/mp4" />
-                </video>
-            </div>
-        );
-    }
+    return (
+        <>
+            {
+                adList.map((adItem, index) => {
+                    return (
+                        <div className={cx('ad-wrap', {visible: index === adIndex})}>
+                            {
+                                adItem.type === 0 ? 
+                                    <img className={cx('ad-img')} src={adItem.url} />
+                                    :
+                                    <video
+                                        id={`video_${index}`}
+                                        className={cx('ad-video')}
+                                        muted
+                                        onEnded={nextAd}
+                                        >
+                                        <source src={adItem.url} type="video/mp4" />
+                                    </video>
+
+                            }
+                        </div>
+                    );
+                })
+            }
+        </>
+    );
 };
 
 const MenuItems = ({ toggleDrawer, modalOpenHandler }) => {

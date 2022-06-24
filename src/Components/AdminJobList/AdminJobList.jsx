@@ -57,10 +57,12 @@ const JobLsitComponent = ({ orderList }) => {
                                             aria-label="upload picture"
                                             component="span"
                                             onClick={() => {checkingJob(order)}}
+                                            disabled={checkedIdList.includes(order.log_id)}
                                             >
                                             {
                                                 checkedIdList.includes(order.log_id) ?
                                                     <CheckCircleIcon
+                                                        // disabled={true}
                                                         fontSize='medium'   // large
                                                     />
                                                     :

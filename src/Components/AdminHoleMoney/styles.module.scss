@@ -1,8 +1,15 @@
 .hole-in-one-wrap {
     height: 40px;
+    position: relative;
 
     .hole-in-on-save-btn {
         height: 100%;
         margin-left: 10px;
+    }
+
+    .test {
+        position: absolute;
+        top: -55px;
+        left: 150px;
     }
 }

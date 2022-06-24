@@ -61,11 +61,10 @@
             .job-box {
                 min-width: 200px;
                 max-width: calc(100% - 90px);
-                // height: 100px;
                 background-color: yellow;
                 position: relative;
                 border-radius: 5px;
-                margin-bottom: 60px;
+                margin-bottom: 40px;
                 padding: 10px;
 
                 .job-box-header {
@@ -87,6 +86,7 @@
                     }
                 }
 
+
                 .job-text {
                     font-size: 18px;
                     width: 100%;
@@ -94,8 +94,8 @@
                 }
     
                 &:after, &:before {
-                    top: 100%;
-                    right: 20px;
+                    top: 15%;
+                    left: calc(100% + 10px);
                     border: solid transparent;
                     content: "";
                     height: 0;
@@ -109,6 +109,7 @@
                     border-top-color: yellow;
                     border-width: 10px;
                     margin-left: -10px;
+                    transform: rotate(270deg);
                 }
 
                 
