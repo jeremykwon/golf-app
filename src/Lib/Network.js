@@ -9,6 +9,8 @@ const axios = Axios.create({
     // },
 });
 
+Axios.defaults.withCredentials = true;
+
 axios.interceptors.request.use((config) => {
     let token = getStorage({ key: 'user_info' })?.token;
 
