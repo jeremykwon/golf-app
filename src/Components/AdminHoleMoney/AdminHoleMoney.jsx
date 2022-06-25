@@ -98,7 +98,7 @@ const AdminHoleMoney = ({ price }) => {
                         onChange={changeUseHoleState}
                         />
                 }
-                label="Label"
+                label="홀인원기능"
                 />
             <TextField
                 inputRef={inputText}

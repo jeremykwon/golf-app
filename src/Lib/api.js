@@ -181,7 +181,7 @@ const modifyHoleInOnePrice = async ({ userId, holeInOnePrice }) => {
             method: 'put',
             data: {
                 user_id: userId,
-                set_holeinone: holeInOnePrice
+                set_holeinone: Number(holeInOnePrice)
             }
         });
 
@@ -311,7 +311,7 @@ const completeOrder = async ({ clientId, logId }) => {
 const getClientInfo = async () => {
     try {
         const res = await sendAPI({
-            url: ` client/render`,
+            url: `client/render`,
             method: 'get',
         });
 
