@@ -1,12 +1,19 @@
 
-@import url(https://fonts.googleapis.com/earlyaccess/notosanskr.css);
-@import url('https://fonts.googleapis.com/css2?family=Staatliches&display=swap');
+// @import url(https://fonts.googleapis.com/earlyaccess/notosanskr.css);
+// @import url('https://fonts.googleapis.com/css2?family=Staatliches&display=swap');
+@import url(//spoqa.github.io/spoqa-han-sans/css/SpoqaHanSansNeo.css);
 
 
 * {
-  font-family: 'Noto Sans KR' !important;
+  // font-family: 'Noto Sans KR' !important;
+  font-family: 'Spoqa Han Sans Neo', 'sans-serif';
   margin: 0;
   box-sizing: border-box;
+
+  -webkit-user-select:none;
+  -moz-user-select:none;
+  -ms-user-select:none;
+  user-select:none
 }
 
 body {
@@ -14,9 +21,16 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   box-sizing: border-box;
+
+  // 드래그 방지
+  -webkit-user-select:none;
+  -moz-user-select:none;
+  -ms-user-select:none;
+  user-select:none
 }
 
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-  monospace;
+button {
+  outline: none;
+  border: none;
+  padding: 0;
 }

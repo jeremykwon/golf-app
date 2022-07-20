@@ -5,7 +5,10 @@ import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 
 import { alertState } from 'Store/GlobalStore'
 
-import { ClientPage, LoginPage, NotFoundPage, AdminPage, MasterPage } from 'Pages';
+import { 
+	ClientPage, LoginPage, NotFoundPage, AdminPage, MasterPage,
+	ClientPage2
+ } from 'Pages';
 import { Alert } from 'Components';
 
 // import logo from './logo.svg';
@@ -39,6 +42,8 @@ function App() {
 					<Route path="/master" element={<MasterPage />} />
 					<Route path="/" element={<ClientPage />} />
 					<Route path="/signin" element={<LoginPage />} />
+
+					<Route path="/2" element={<ClientPage2 />} />
 				</Routes>
 			</Router>
 
