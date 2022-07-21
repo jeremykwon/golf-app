@@ -47,6 +47,7 @@ const IconTextButton = ({ title, clickHandler }) => {
         <Box
             onMouseEnter={setHover}
             onMouseLeave={setUnHover}
+            onClick={clickHandler}
         >
             <img src={isHover ? currentIcon.activate : currentIcon.default} alt='버튼 아이콘' />
             { title }

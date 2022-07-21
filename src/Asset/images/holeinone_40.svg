@@ -1,0 +1,23 @@
+<svg width="40" height="40" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+<g clip-path="url(#clip0_485_221)">
+<g filter="url(#filter0_d_485_221)">
+<path d="M32.5 40H7.5C3.35754 40 0 36.6425 0 32.5V7.5C0 3.35754 3.35754 0 7.5 0H32.5C36.6425 0 40 3.35754 40 7.5V32.5C40 36.6425 36.6425 40 32.5 40Z" fill="#2D76F7" fill-opacity="0.1" shape-rendering="crispEdges"/>
+</g>
+<path d="M19 25.938C16.9827 25.6813 15.1389 24.6661 13.8432 23.0988C12.5475 21.5314 11.8973 19.5295 12.0246 17.5C12.152 15.4704 13.0473 13.5655 14.5287 12.1724C16.0102 10.7793 17.9664 10.0025 20 10C22.036 9.99849 23.9961 10.7733 25.4807 12.1667C26.9653 13.56 27.8628 15.467 27.9903 17.499C28.1178 19.5311 27.4657 21.5353 26.1669 23.1033C24.868 24.6712 23.0203 25.685 21 25.938V28.012C24.946 28.104 28 28.735 28 29.5C28 30.328 24.418 31 20 31C15.582 31 12 30.328 12 29.5C12 28.735 15.054 28.104 19 28.012V25.938V25.938ZM20 20C20.5304 20 21.0391 19.7893 21.4142 19.4142C21.7893 19.0391 22 18.5304 22 18C22 17.4696 21.7893 16.9609 21.4142 16.5858C21.0391 16.2107 20.5304 16 20 16C19.4696 16 18.9609 16.2107 18.5858 16.5858C18.2107 16.9609 18 17.4696 18 18C18 18.5304 18.2107 19.0391 18.5858 19.4142C18.9609 19.7893 19.4696 20 20 20Z" fill="#4D6AED"/>
+</g>
+<defs>
+<filter id="filter0_d_485_221" x="-100" y="-98" width="240" height="240" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
+<feFlood flood-opacity="0" result="BackgroundImageFix"/>
+<feColorMatrix in="SourceAlpha" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0" result="hardAlpha"/>
+<feOffset dy="2"/>
+<feGaussianBlur stdDeviation="50"/>
+<feComposite in2="hardAlpha" operator="out"/>
+<feColorMatrix type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.1 0"/>
+<feBlend mode="normal" in2="BackgroundImageFix" result="effect1_dropShadow_485_221"/>
+<feBlend mode="normal" in="SourceGraphic" in2="effect1_dropShadow_485_221" result="shape"/>
+</filter>
+<clipPath id="clip0_485_221">
+<rect width="40" height="40" fill="white"/>
+</clipPath>
+</defs>
+</svg>

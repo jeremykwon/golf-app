@@ -10,7 +10,8 @@ const ControlContainer = ({
     type,
     clickHandler,
     isSelected=1,
-    size='large'
+    size='large',
+    modalView
 }) => {
     return(
         <Box
@@ -19,8 +20,8 @@ const ControlContainer = ({
             size={size}
             >
             <ControlHeader>
-                <IconTextButton title={'광고문의'} />
-                <IconTextButton title={'로그아웃'} />
+                <IconTextButton clickHandler={() => {modalView('contact');}} title={'광고문의'} />
+                <IconTextButton clickHandler={() => {modalView('logout');}} title={'로그아웃'} />
             </ControlHeader>
 
             <OrderContainer>

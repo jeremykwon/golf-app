@@ -8,6 +8,7 @@ const ColorButton = ({
     title,
     margin=''
 }) => {
+    console.log(color)
     return(
         <ColorBtn
             color={color === 'blue' ? '#4D6AED' : '#252733'}
@@ -31,5 +32,5 @@ const ColorBtn = styled.button`
     margin: ${ ({ margin }) => margin };
     font-size: 15px;
     color: #fff;
-    border-radius: 15px;
+    border-radius: 10px;
 `;

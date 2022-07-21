@@ -1,16 +1,27 @@
 import { useMemo, useState } from 'react';
 import styled from "styled-components";
-
-import { ColorButton } from 'Components/atoms';
-import { ControlContainer, HoleinoneSide } from 'Components/templates';
 import { FullScreen, useFullScreenHandle } from "react-full-screen";
+import classNames from 'classnames/bind';
+import styles from './styles.module.scss';
 
+import { Modal } from '@mui/material';
+import { ColorButton } from 'Components/atoms';
+import { ControlContainer, HoleinoneSide, AdContactSection, LoginSection } from 'Components/templates';
 
+const cx = classNames.bind(styles);
 
 const ClientPage = () => {
+    const [modalType, setModalType] = useState(null); // contact, logout
     const [isFullScreen, setIsFullScreen] = useState(false);
     const handle = useFullScreenHandle();
 
+    const modalCloseHandler = () => {
+        setModalType(null);
+    };
+
+    const modalView = (type) => {
+        setModalType(type);
+    };
 
     return(
         <>
@@ -29,8 +40,30 @@ const ClientPage = () => {
             
 			<FullScreen id="container" handle={handle}>
                 <Container>
+                    <div
+                        className={cx('modal-container')}
+                        aria-labelledby="transition-modal-title"
+                        aria-describedby="transition-modal-description"
+                        open={modalType}
+                        onClose={modalCloseHandler}
+                        closeAfterTransition
+                        BackdropProps={{
+                            timeout: 400,
+                        }}
+                        style={{ position: 'fixed', width: '100vw', height: '100vh', backgroundColor: 'black' }}
+                        >
+                            <>
+                            <p>111111111111</p>
+                                {
+                                    modalType === 'contact' && <AdContactSection modalCloseHandler={modalCloseHandler} />
+                                }
+                                {
+                                    modalType === 'logout' && <LoginSection />
+                                }
+                            </>
+                    </div>
                     <HoleinoneSide />
-                    <ControlContainer />
+                    <ControlContainer modalView={modalView} />
                 </Container>
 			</FullScreen>
         </>

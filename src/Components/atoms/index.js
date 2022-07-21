@@ -11,5 +11,5 @@ export {
     TitleText,
     IconTextButton,
     MoneyView,
-    Weather
+    Weather,
 };

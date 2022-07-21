@@ -1,0 +1,29 @@
+.login-wrap {
+    margin: auto;
+    display: flex;
+    flex-direction: column;
+    width: fit-content;
+    height: fit-content;
+    background-color: #fff;
+    padding: 25px;
+    border-radius: 10px;
+
+    .input-wrap {
+        width: 400px;
+        display: flex;
+        align-items: flex-end;
+        margin-top: 30px;
+
+        &:last-child {
+            margin-top: 40px;
+            font-size: 17px;
+        }
+    }
+
+    .error-msg {
+        font-size: 17px;
+        color: red;
+        margin-top: 20px;
+        height: 30px;
+    }
+}

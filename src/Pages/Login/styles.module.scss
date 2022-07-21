@@ -3,32 +3,5 @@
     height: 100vh;
     display: flex;
     justify-content: center;
-    
-
-    .login-wrap {
-        margin: auto;
-        display: flex;
-        flex-direction: column;
-        width: fit-content;
-        height: fit-content;
-
-        .input-wrap {
-            width: 400px;
-            display: flex;
-            align-items: flex-end;
-            margin-top: 30px;
-
-            &:last-child {
-                margin-top: 40px;
-                font-size: 17px;
-            }
-        }
-
-        .error-msg {
-            font-size: 17px;
-            color: red;
-            margin-top: 20px;
-            height: 30px;
-        }
-    }
+    align-items: center;
 }
