@@ -1,6 +1,6 @@
 import { atom, selector } from 'recoil';
 
-// 모달
+// 알림
 const alertState = atom({
     key: "alert",
     default: {
@@ -8,6 +8,12 @@ const alertState = atom({
         okHandler: () => {},
         text: ''
     }
+});
+
+// admin 모달
+const adminModalState = atom({
+    key: "adminModal",
+    default: null
 });
 
 
@@ -36,6 +42,7 @@ const alertState = atom({
 
 export {
     alertState,
+    adminModalState
     // isNavbarOpen, 
     // showAlert,
 };

@@ -4,3 +4,30 @@
     display: flex;
     overflow: hidden;
 }
+
+.input-wrap {
+    width: 400px;
+    // width: 100%;
+    // margin-top: 10px;
+    // // display: flex;
+
+    // .order-save-btn {
+    //     height: 40px;
+    //     margin-left: 10px;
+    //     margin-bottom: 20px;
+    // }
+}
+
+.room-setting-wrap {
+    width: 100%;
+    flex-wrap: wrap;
+    
+    .room-text-field {
+        margin-bottom: 10px;
+    }
+
+    .room-save-btn {
+        width: 100%;
+        margin-bottom: 20px;
+    }
+}

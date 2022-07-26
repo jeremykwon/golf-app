@@ -1,3 +1,4 @@
+/* check, trash 등 아이콘 버튼 */
 import { useMemo } from 'react';
 import styled from "styled-components";
 
@@ -9,23 +10,24 @@ import trashEnabled from 'Asset/images/trash_enable.png';
 
 const IconButton = ({
     type,
-    disabled,
-    clickHandler
+    clickHandler,
+    color
 }) => {
     let icon = useMemo(()=> {
         if (type === 'check') {
-            if (disabled) return checkDisabled;
+            if (clickHandler) return checkDisabled;
             else return checkEnabled;
         } else {
-            if (disabled) return trashDisabled;
+            if (clickHandler) return trashDisabled;
             else return trashEnabled;
         }
-    }, [type, disabled]);
+    }, [type, clickHandler]);
 
     return(
         <Button
             cursor={clickHandler ? 'pointer' : 'auto'}
             onClick={clickHandler}
+            backColor={color}
         >
             <img src={icon} alt='버튼' />
         </Button>
@@ -34,16 +36,25 @@ const IconButton = ({
 
 export default IconButton;
 
-const Button = styled.button`
+const Button = styled.div`
     display: flex;
     cursor:  ${ ({ cursor }) => cursor };
     width: fit-content;
     height: fit-content;
     margin-left: 10px;
     align-items: center;
+    user-select: none;
+    
 
     img {
-        width: 17px;
-        height: 17px;
+        width: 25px;
+        height: 25px;
+    }
+
+    @media screen and (max-width: 1000px) {
+        img {
+            width: 17px;
+            height: 17px;
+        }
     }
 `;

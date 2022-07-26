@@ -1,8 +1,10 @@
-import React, { useEffect, useMemo, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 
-import { testVideo, testImage } from 'Asset';
 import classNames from 'classnames/bind';
 import styles from './styles.module.scss';
+
+import { testVideo, testImage } from 'Asset';
+import { ColorButton } from 'Components/atoms';
 
 const cx = classNames.bind(styles);
 
@@ -35,7 +37,6 @@ const Advertising = ({ isAdView, setIsAdView }) => {
 	// 이미지중 광고 안보이게 되면 남은 시간 만큼 다시 이미지 보여지도록
 	// 영상의 경우 처음부터 다시시작됨
 	useEffect(() => {
-		
 		if (currentAd.type === 'image') {
 			let interval = setInterval(() => {
 				if (!isAdView) clearInterval(interval);
@@ -73,7 +74,9 @@ const Advertising = ({ isAdView, setIsAdView }) => {
 								<img className={cx('ad-image')} src={currentAd.src} alt='광고 이미지' />
 						}
 
-						
+						<div className={cx('explanation')}>
+							<ColorButton title={'화면을 클릭하시면 주문이 가능합니다'} color={'black'} />
+						</div>
 					</div>
 			}
 		</>

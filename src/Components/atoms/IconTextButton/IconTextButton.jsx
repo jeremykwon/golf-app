@@ -62,7 +62,7 @@ const Box = styled.div`
     align-items: center;
     width: fit-content;
     color: #d4d4d4;
-    font-size: 13px;
+    font-size: 20px;
     cursor: pointer;
 
     &:hover {
@@ -71,6 +71,16 @@ const Box = styled.div`
 
     img {
         margin-right: 5px;
-        width: 17px;
+        width: 30px;
+
+        
+    }
+
+    @media screen and (max-width: 1000px) {
+        font-size: 13px;
+
+        img {
+            width: 17px;
+        }
     }
 `;

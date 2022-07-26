@@ -5,9 +5,9 @@ import AdminPage from './Admin/AdminPage';
 import MasterPage from './Master/MasterPage';
 
 import ClientPage2 from './Client/ClientPage2';
+import AdminPage2 from './Admin/AdminPage2';
 // import LoginPage2 from './Login/LoginPage2';
 // import NotFoundPage2 from './NotFound/NotFoundPage2';
-// import AdminPage2 from './Admin/AdminPage2';
 // import MasterPage2 from './Master/MasterPage2';
 
 export {
@@ -16,5 +16,7 @@ export {
     NotFoundPage,
     AdminPage,
     MasterPage,
-    ClientPage2
+
+    ClientPage2,
+    AdminPage2
 };

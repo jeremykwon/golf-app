@@ -8,29 +8,6 @@ import { createOrderMenu, deleteOrderMenu, createClient, deleteClient } from 'Li
 
 const cx = classNames.bind(styles);
 
-const tmpRoomDatas = [
-    {
-        id: 'id1',
-        pw: 'pass word',
-        title: '1번 방'
-    },
-    {
-        id: 'id2',
-        pw: 'pass word',
-        title: '2번 방'
-    },
-    {
-        id: 'id3',
-        pw: 'pass word',
-        title: '3번 방'
-    },
-    {
-        id: 'id4',
-        pw: 'pass word',
-        title: '4번 방'
-    }
-];
-
 const AdminSettingSide = ({ pageInfo, refreshMenuList, refreshClientList }) => {
     const [selectedRoomIndex, setSelectedRoomIndex] = useState(null);
     const [isAddOrder, setIsAddOrder] = useState(false);

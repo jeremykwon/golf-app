@@ -102,7 +102,7 @@ const LoginSection = ({ signinType }) => {
     };
     
     return (
-        <div className={cx('login-wrap')}>
+        <div className={cx('login-wrap')} onClick={(e) => {e.stopPropagation()}}>
             <div className={cx('input-wrap')}>
                 <AccountCircle sx={{ color: 'action.active', mr: 1, my: 0.5 }} />
                 <TextField 

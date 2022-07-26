@@ -5,16 +5,18 @@ const ColorButton = ({
     disabled,
     clickHandler,
     width='100%',
+    height='50px',
     title,
     margin=''
 }) => {
-    console.log(color)
     return(
         <ColorBtn
             color={color === 'blue' ? '#4D6AED' : '#252733'}
             disabled={disabled}
+            disable={disabled}
             onClick={clickHandler}
             width={width}
+            height={height}
             margin={margin}
         >
             { title }
@@ -25,12 +27,13 @@ const ColorButton = ({
 export default ColorButton;
 
 const ColorBtn = styled.button`
-    background-color:  ${ ({ color }) => color };
+    background-color:  ${ ({ color, disable }) => disable ? '#c1c1c1' : color };
     cursor: ${ ({ disabled }) => disabled ? 'auto' : 'pointer' };
-    height: 50px;
+    height: ${ ({ height }) => height };
     width: ${ ({ width }) => width };
     margin: ${ ({ margin }) => margin };
     font-size: 15px;
     color: #fff;
     border-radius: 10px;
+    padding: 0 10px;
 `;

@@ -7,29 +7,13 @@ import { alertState } from 'Store/GlobalStore'
 
 import { 
 	ClientPage, LoginPage, NotFoundPage, AdminPage, MasterPage,
-	ClientPage2
+	ClientPage2, AdminPage2
  } from 'Pages';
 import { Alert } from 'Components';
 
-// import logo from './logo.svg';
-// import { FullScreen, useFullScreenHandle } from "react-full-screen";
-
 function App() {
 	const info = useRecoilValue(alertState);
-	// const handle = useFullScreenHandle();
-
-	// console.log(document.querySelector("#container"))
-	// if (document.querySelector("#container")) document.querySelector("#container").requestFullscreen();
-	// useEffect(() => {
-	// 	console.log(document.querySelector("#container"))
-	// 	if (document.querySelector("#container")) document.querySelector("#container").requestFullscreen();
-	// 	// if (document.documentElement.requestFullscreen) document.querySelector("#container").requestFullscreen();
-	// 	// else if (document.documentElement.webkitRequestFullScreen) document.querySelector("#container").webkitRequestFullScreen();
-	// }, []);
-
-	// recoil
-	// const step = useRecoilValue(stepState);
-
+	
 	return (
 		<div className="App">
 			{
@@ -44,16 +28,9 @@ function App() {
 					<Route path="/signin" element={<LoginPage />} />
 
 					<Route path="/2" element={<ClientPage2 />} />
+					<Route path="/3" element={<AdminPage2 />} />
 				</Routes>
 			</Router>
-
-
-			{/* <button id='idgogo' onClick={handle.enter}>
-				Enter fullscreen
-			</button>
-			<FullScreen id="container" handle={handle}>
-				Any fullscreen content here
-			</FullScreen> */}
 		</div>
 	);
 }

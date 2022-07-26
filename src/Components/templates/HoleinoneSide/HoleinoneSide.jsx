@@ -4,10 +4,11 @@ import { MoneyView } from 'Components/atoms';
 import { WeatherBox } from 'Components/organisms';
 import holeinone from 'Asset/images/holeinone.png';
 
-const HoleinoneSide = () => {
+const HoleinoneSide = ({ money }) => {
+
     return(
         <Box imageUrl={holeinone}>
-            <MoneyView money={1000000} />
+            <MoneyView money={money} />
             <WeatherBox />
         </Box>
     );

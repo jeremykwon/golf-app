@@ -3,6 +3,8 @@ import styles from './styles.module.scss';
 
 import { ColorButton } from 'Components/atoms';
 
+import { IconText } from 'Components/atoms';
+
 // images
 import talkBlue from 'Asset/images/talk_blue.svg';
 import modalClose from 'Asset/images/modal_close.svg';
@@ -12,17 +14,15 @@ const cx = classNames.bind(styles);
 const AdContactModal = ({ modalCloseHandler }) => {
 
     return(
-        <div className={cx('modal-body')}>
+        <div className={cx('modal-body')} onClick={(e) => {e.stopPropagation()}}>
             <button
                 className={cx('modal-close-btn')}
                 onClick={modalCloseHandler}
                 >
                     <img src={modalClose} alt='모달 닫기버튼' />
                 </button>
-            <div className={cx('modal-header')}>
-                <img src={talkBlue} alt='말풍선' />
-                <p>광고문의</p>
-            </div>
+
+            <IconText title={'광고문의'} imageSrc={talkBlue} />
 
             {
                 [

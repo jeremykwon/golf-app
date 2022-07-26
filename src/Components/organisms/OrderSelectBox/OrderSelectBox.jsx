@@ -3,14 +3,20 @@ import styled from "styled-components";
 // component
 import { OrderButton } from 'Components/molecules';
 
-const orderList = [{menu_name: '4392876498326478326478323264783264783264783264786874632874328'}, {menu_name: 1}, {menu_name: 1}, {menu_name: 1}, {menu_name: 1}, {menu_name: 1}, {menu_name: 1}, {menu_name: 1}, {menu_name: 1}, {menu_name: 1},{menu_name: 1},{menu_name: 1},{menu_name: 1},{menu_name: 1},{menu_name: 1},{menu_name: 1},{menu_name: 1},{menu_name: 1},{menu_name: 1},{menu_name: 1},{menu_name: 1},{menu_name: 1},{menu_name: 1},{menu_name: 1},{menu_name: 1},{menu_name: 1},{menu_name: 1},{menu_name: 1},{menu_name: 1},{menu_name: 1},{menu_name: 1},]
-const OrderSelectBox = () => {
+const OrderSelectBox = ({ menuList, selectedOrder, selectIndex }) => {
     return(
         <Box>
             {
-                orderList.map((order, index) => {
+                menuList.map((order, index) => {
+                    const exist = selectedOrder.includes(index);
+
                     return (
-                        <OrderButton key={`${order}_${index}`} title={order.menu_name} />
+                        <OrderButton
+                            key={`${order}_${index}`}
+                            title={order.menu_name}
+                            clickHandler={() => {selectIndex(index, exist)}}
+                            isSelected={exist}
+                            />
                     );
                 })
             }

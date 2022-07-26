@@ -68,9 +68,9 @@
         width: 10px;
     }
       
-    // &::-webkit-scrollbar-track {
-    //     border-radius: 100px;
-    // }
+    &::-webkit-scrollbar-track {
+        border-radius: 100px;
+    }
     
     &::-webkit-scrollbar-thumb {
         // border-radius: 100px;
