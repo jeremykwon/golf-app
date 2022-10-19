@@ -15,7 +15,8 @@ const ControlContainer = ({
     isSelected=1,
     size='large',
     modalView,
-    menuList
+    menuList,
+    snackBarOpenhandler
 }) => {
     const [selectedOrder, setSelectedOrder] = useState([]);
 
@@ -36,7 +37,8 @@ const ControlContainer = ({
             return;
         }
 
-        // snackBarOpenhandler();
+        snackBarOpenhandler();
+        setSelectedOrder([]);
     };
 
     const selectIndex = (index, exist) => {

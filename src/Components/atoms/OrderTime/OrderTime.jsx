@@ -16,7 +16,7 @@ export default OrderTime;
 const Box = styled.div`
     display: flex;
     color: #6b7583;
-    font-size: 12px;
+    font-size: 14px;
 
     img {
         margin-right: 8px;

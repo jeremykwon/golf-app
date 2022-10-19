@@ -1,8 +1,6 @@
 import { IconButton } from 'Components/atoms';
 import styled from "styled-components";
-
 import Marquee from "react-fast-marquee";
-
 
 const OrderButton = ({
     title,
@@ -13,7 +11,6 @@ const OrderButton = ({
     type='check',
     iconHandler=null
 }) => {
-    console.log(isSelected)
 
     return(
         <ButtonWrap

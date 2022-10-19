@@ -8,9 +8,11 @@ import { OrderHistoryBox } from 'Components/organisms';
 
 import { completeOrder } from 'Lib/api';
 
+import refresh from 'Asset/images/refresh.png';
 
 
-const OrderHistorySide = ({ orderList }) => {
+
+const OrderHistorySide = ({ orderList, getAdminInfo }) => {
     const [checkedIdList, setCheckedIdList] = useState([]);
 
     const addCheckedId = (id) => {
@@ -28,6 +30,11 @@ const OrderHistorySide = ({ orderList }) => {
     return(
         <Box >
             <IconText title={'주문내역'} color={'#fff'} imageSrc={orderlist} />
+
+            <RefreshBtn onClick={getAdminInfo}>
+                <img src={refresh} alt='새로고침 버튼' />
+                <p>새로고침</p>
+            </RefreshBtn>
 
             <ContentWrapper>
                 {
@@ -53,6 +60,25 @@ const Box = styled.div`
     width: 35%;
     background-color: #252733;
     padding: 73px 50px;
+    position: relative;
+`;
+
+const RefreshBtn = styled.button`
+    cursor: pointer;
+    background-color: inherit;
+    color: #fff;
+    font-size: 18px;
+    display: flex;
+    align-items: center;
+    position: absolute;
+    right: 50px;
+    top: 80px;
+
+    img {
+        width: 17px;
+        height: 17px;
+        margin-right: 5px;
+    }
 `;
 
 const ContentWrapper = styled.div`
@@ -60,6 +86,7 @@ const ContentWrapper = styled.div`
     height: 100%;
     overflow-y: scroll;
     margin-top: 40px;
+    padding-bottom: 10px;
 
     &::-webkit-scrollbar {
         width: 10px;

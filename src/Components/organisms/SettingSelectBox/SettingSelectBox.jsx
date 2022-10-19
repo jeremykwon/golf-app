@@ -60,4 +60,13 @@ const Box = styled.div`
     margin-bottom: 20px;
     overflow-y: overlay;
     padding-right: 20px;
+
+    &::-webkit-scrollbar {
+        width: 10px;
+    }
+        
+    &::-webkit-scrollbar-thumb {
+        background-color: #afafaf;
+        box-shadow: inset 2px 2px 5px 0 rgba(#fff, 0.5);
+    }
 `;

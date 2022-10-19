@@ -84,7 +84,7 @@ const HoleinoneTextBox = ({
             <p>원</p>
 
             <ColorButton
-                title={'수정하기'}
+                title={isModify ? '저장하기' : '수정하기'}
                 disabled={!isUseHoleMoney}
                 clickHandler={() => {
                     if (isModify) {

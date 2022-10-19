@@ -7,6 +7,7 @@ import { modifyHoleInOnePrice } from 'Lib/api';
 import { IconText, TextToggle, HoleinoneTextBox } from 'Components/atoms';
 
 import holeinone from 'Asset/images/holeinone_40.svg';
+import { useEffect } from 'react';
 
 const HoleinoneSettingContainer = ({ price }) => {
     const [isUseHoleMoney, seIsUseHoleMoney] = useState(price !== 0);
@@ -18,7 +19,7 @@ const HoleinoneSettingContainer = ({ price }) => {
         seIsUseHoleMoney(state);
         setIsModify(false);
 
-        if (state) changeHoleInOnePrice(holeMoney, 1);
+        if (state) changeHoleInOnePrice(Number(holeMoney.replaceAll(',', '')), 1);
         else changeHoleInOnePrice(0, 0);
     };
 

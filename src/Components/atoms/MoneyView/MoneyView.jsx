@@ -49,7 +49,7 @@ const Box = styled.div`
     border: solid 1px #2d76f7;
     margin: auto;
     position: absolute;
-    top: calc(50% + 10px);
+    top: calc(50% + 100px);
     left: 50%;
     transform: translate(-50%, -50%);
     /* min-width: 250px; */

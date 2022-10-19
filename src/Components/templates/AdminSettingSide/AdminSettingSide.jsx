@@ -3,7 +3,7 @@ import styled from "styled-components";
 
 import { IconTextButton } from 'Components/atoms';
 import { ControlHeader } from 'Components/molecules';
-import { AdminSettingContainer, HoleinoneSettingContainer } from 'Components/organisms';
+import { AdminSettingContainer, HoleinoneSettingContainer, NoticeSettingContainer } from 'Components/organisms';
 
 import { deleteOrderMenu, deleteClient } from 'Lib/api';
 
@@ -47,11 +47,13 @@ const AdminSettingSide = ({ refreshMenuList, refreshClientList, pageInfo }) => {
     return(
         <Box>
             <ControlHeader height={'70px'}>
-                <IconTextButton title={'알림음 관리'} />
+                <IconTextButton title={'알림음 관리'} clickHandler={() => {alert('준비중입니다')}} />
             </ControlHeader>
 
             <SettingWrapper>
                 <HoleinoneSettingContainer price={pageInfo.holeInOne} />
+
+                <NoticeSettingContainer noticeText={pageInfo.notice} />
 
                 <SettingBoxs>
                     <AdminSettingContainer
@@ -92,5 +94,5 @@ const SettingWrapper = styled.div`
 const SettingBoxs = styled.div`
     display: flex;
     gap: 30px;
-    height: calc(100% - 114px);
+    height: calc(100% - 240px);
 `;

@@ -3,30 +3,20 @@ import { useEffect, useMemo, useState } from 'react';
 import classNames from 'classnames/bind';
 import styles from './styles.module.scss';
 
-import { testVideo, testImage } from 'Asset';
 import { ColorButton } from 'Components/atoms';
 
 const cx = classNames.bind(styles);
 
-const MAX_IMAGE_VIEW_TIME = 3;
+const MAX_IMAGE_VIEW_TIME = 10;
 let image_view_time = 0;
-const adList = [
-	{
-		src: testImage,
-		type: 'image',
-	},
-	{
-		src: testVideo,
-		type: 'video',
-	}
-]
 
-const Advertising = ({ isAdView, setIsAdView }) => {
+const Advertising = ({ isAdView, setIsAdView, adList }) => {
 	const [adIndex, setAdIndex] = useState(0);
 	
 	const currentAd = useMemo(() => {
-		return adList[adIndex];
-	}, [adIndex]);
+		if (adList.length !== 0) return adList[adIndex];
+		else return null;
+	}, [adIndex, adList]);
 
 	const addAdIndex = () => {
 		if (adList.length - 1 > adIndex) setAdIndex(adIndex + 1);
@@ -37,7 +27,10 @@ const Advertising = ({ isAdView, setIsAdView }) => {
 	// 이미지중 광고 안보이게 되면 남은 시간 만큼 다시 이미지 보여지도록
 	// 영상의 경우 처음부터 다시시작됨
 	useEffect(() => {
-		if (currentAd.type === 'image') {
+		// 광고가 없으면 동작X
+		if (adList.length === 0) return;
+		
+		if (currentAd.type === 0) {
 			let interval = setInterval(() => {
 				if (!isAdView) clearInterval(interval);
 
@@ -46,32 +39,32 @@ const Advertising = ({ isAdView, setIsAdView }) => {
 			}, [1000]);
 			return () => clearInterval(interval);
 		}
-	}, [currentAd, isAdView]);
+	}, [currentAd, isAdView, adList]);
 
     return (
 		<>
 			{
-				isAdView &&
+				(isAdView && currentAd !== null)  &&
 					<div
 						className={cx('ad-wrap')}
 						onClick={() => {
 							setIsAdView(!isAdView);
 						}}>
 						{
-							currentAd.type === 'video' &&
+							currentAd.type === 1 &&
 								<video
 									className={cx('ad-video')}
 									autoPlay
 									muted
 									onEnded={addAdIndex}
 									>
-									<source src={currentAd.src} type="video/mp4" />
+									<source src={currentAd.url} type="video/mp4" />
 								</video>
 						}
 			
 						{
-							currentAd.type === 'image' &&
-								<img className={cx('ad-image')} src={currentAd.src} alt='광고 이미지' />
+							currentAd.type === 0 &&
+								<img className={cx('ad-image')} src={currentAd.url} alt='광고 이미지' />
 						}
 
 						<div className={cx('explanation')}>

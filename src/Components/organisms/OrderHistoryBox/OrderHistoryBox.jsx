@@ -9,7 +9,7 @@ const OrderHistoryBox = ({ isComplete=false, order, checkHandler }) => {
                 <BadgeText title={order.nickname} />
                 <Order>{ order.comment } </Order>
                 {/* <OrderTime time={'2022-07-09 23:43:29'} /> */}
-                <OrderTime time={order.logtime} />
+                <OrderTime time={`${order.logtime.split('T')[0]} ${order.logtime.split('T')[1].split('.')[0]}`} />
             </LeftBox>
             
             <ColorButton

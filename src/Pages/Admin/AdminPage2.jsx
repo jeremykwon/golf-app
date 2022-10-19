@@ -19,20 +19,20 @@ const cx = classNames.bind(styles);
 
 let tmpOrderList = [];
 
+const audio = new Audio(alertMp3);
+
 const AdminPage = () => {
     const [isRendering, setIsRendering] = useState(true);
     const [pageInfo, setPageInfo] = useState({
         holeInOne: null,
         menuList: [],
-        clientList: []
+        clientList: [],
+        notice: ''
     });
     const [modalInfo, setModalInfo] = useRecoilState(adminModalState);
     const [orderList, setOrderList] = useState([]);
 
-    console.log(orderList)
-
     const playAlertSound = useCallback(() => {
-        const audio = new Audio(alertMp3);
         audio.play();
     }, []);
 
@@ -62,7 +62,8 @@ const AdminPage = () => {
         setPageInfo({
             holeInOne: res.set_holeinone,
             menuList: res.menu_list,
-            clientList: res.client_list
+            clientList: res.client_list,
+            notice: res.set_notice
         });
 
         tmpOrderList = res.order_list;
@@ -84,10 +85,8 @@ const AdminPage = () => {
             alert('주문 리스트 불러오기 에러');
         }
     };
-    
 
     const refreshMenuList = async () => {
-        console.log(1111111111)
         const res = await getAdminMenu();
         
         if (res.menu_list) {
@@ -143,7 +142,7 @@ const AdminPage = () => {
                 </Modal>
 
                 <Container>
-                    <OrderHistorySide orderList={orderList} />
+                    <OrderHistorySide orderList={orderList} getAdminInfo={getAdminInfo} />
                     <AdminSettingSide
                         pageInfo={pageInfo}
                         refreshMenuList={refreshMenuList}

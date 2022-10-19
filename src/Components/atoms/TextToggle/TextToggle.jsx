@@ -4,18 +4,20 @@ import styled from "styled-components";
 import { Switch, FormControlLabel } from '@mui/material';
 
 const TextToggle = ({ title, changeHandler, price }) => {
-
     return(
         <Box>
             <p>{ title }</p>
-            <FormControlLabel 
-                control={
-                    <Switch
-                        defaultChecked={price !== 0 ? true : false}
-                        onChange={changeHandler}
-                        />
-                }
-                />
+            {
+                price !== null &&
+                <FormControlLabel 
+                    control={
+                        <Switch
+                            defaultChecked={price !== 0 ? true : false}
+                            onChange={changeHandler}
+                            />
+                    }
+                    />
+            }
         </Box>
     );
 };

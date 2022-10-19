@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import styled from "styled-components";
 import { FullScreen, useFullScreenHandle } from "react-full-screen";
 
@@ -7,6 +7,9 @@ import { getStorage } from 'Lib/Storage';
 
 import { ColorButton } from 'Components/atoms';
 import { ControlContainer, HoleinoneSide, AdContactSection, LoginSection, Advertising } from 'Components/templates';
+
+import Snackbar from '@mui/material/Snackbar';
+import MuiAlert from '@mui/material/Alert';
 
 let counter = 0;
 let _isAdView = false;
@@ -19,8 +22,10 @@ const ClientPage = () => {
     const [clientInfo, setClientInfo] = useState({
         adList: [],
         menuList: [],
-        holinonePrice: 0
+        holinonePrice: 0,
+        notice: ''
     });
+    const [open, setOpen] = useState(false);    // 스낵바
     const handle = useFullScreenHandle();
 
     const modalCloseHandler = () => {
@@ -50,23 +55,33 @@ const ClientPage = () => {
             setClientInfo({
                 adList: res.ad_list,
                 menuList: res.menu_list,
-                holinonePrice: res.set_holeinone
+                holinonePrice: res.set_holeinone,
+                notice: res.set_notice
             });
             setIsRendering(true);
         }
     };
 
+    const snackBarOpenhandler = () => {
+        setOpen(true);
+    };
+
+    const snackBarClosehandler = (event, reason) => {
+        if (reason === 'clickaway') return;
+        setOpen(false);
+    };
+
     useEffect(() => {
         getClientInfoFunc();
 
-        // setInterval(() => {
-        //     if (!_isAdView) {
-        //         if (counter === 30) {
-        //             setIsAdView(true);
-        //         }
-        //         counter++;
-        //     }
-        // }, 1000);
+        setInterval(() => {
+            if (!_isAdView) {
+                if (counter === 30) {
+                    setIsAdView(true);
+                }
+                counter++;
+            }
+        }, 1000);
     }, []);
 
     useEffect(() => {
@@ -86,7 +101,7 @@ const ClientPage = () => {
                     <Blind
                         isView={!document.fullscreenElement}
                         >
-                        <ColorButton 
+                        <ColorButton
                             title={'전체화면 전환'}
                             width='300px'
                             clickHandler={handle.enter} />
@@ -94,7 +109,18 @@ const ClientPage = () => {
                     
                     {/* 전체화면 전환시 보여지는 스크린 */}
                     <FullScreen id="container" handle={handle}>
-                        <Advertising setIsAdView={setIsAdView} isAdView={isAdView} />
+                        <Snackbar anchorOrigin={{ vertical: 'bottom', horizontal: 'center' }} open={open} autoHideDuration={4000} onClose={snackBarClosehandler}>
+                            <Alert onClose={snackBarClosehandler} severity="info" sx={{ width: '100%' }}>
+                                주문이 완료되었습니다
+                            </Alert>
+                        </Snackbar>
+
+                        {/* 광고 */}
+                        <Advertising
+                            setIsAdView={setIsAdView}
+                            isAdView={isAdView}
+                            adList={clientInfo.adList}
+                            />
 
                         <Container
                             onTouchStart={initCounter}
@@ -113,8 +139,14 @@ const ClientPage = () => {
                                         }
                                     </>
                             </Blind>
-                            <HoleinoneSide money={clientInfo.holinonePrice} />
-                            <ControlContainer modalView={modalView} menuList={clientInfo.menuList} />
+
+                            <HoleinoneSide money={clientInfo.holinonePrice} notice={clientInfo.notice} />
+
+                            <ControlContainer
+                                modalView={modalView}
+                                menuList={clientInfo.menuList}
+                                snackBarOpenhandler={snackBarOpenhandler}
+                                />
                         </Container>
                     </FullScreen>
                 </>
@@ -141,3 +173,7 @@ const Blind = styled.div`
     align-items: center;
     justify-content: center;
 `;
+
+const Alert = React.forwardRef(function Alert(props, ref) {
+    return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
+});

@@ -5,7 +5,7 @@ import AdminSettingContainer from './AdminSettingContainer/AdminSettingContainer
 import HoleinoneSettingContainer from './HoleinoneSettingContainer/HoleinoneSettingContainer';
 import SettingSelectBox from './SettingSelectBox/SettingSelectBox';
 import OrderHistoryBox from './OrderHistoryBox/OrderHistoryBox';
-
+import NoticeSettingContainer from './NoticeSettingContainer/NoticeSettingContainer';
 
 export {
     OrderSelectBox,
@@ -14,5 +14,6 @@ export {
     AdminSettingContainer,
     HoleinoneSettingContainer,
     SettingSelectBox,
-    OrderHistoryBox
+    OrderHistoryBox,
+    NoticeSettingContainer
 };

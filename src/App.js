@@ -22,13 +22,13 @@ function App() {
 			<Router>
 				<Routes>
 					<Route path="*" element={<NotFoundPage />} />
-					<Route path="/admin" element={<AdminPage />} />
+					{/* <Route path="/admin" element={<AdminPage />} /> */}
 					<Route path="/master" element={<MasterPage />} />
-					<Route path="/" element={<ClientPage />} />
+					{/* <Route path="/" element={<ClientPage />} /> */}
 					<Route path="/signin" element={<LoginPage />} />
 
-					<Route path="/2" element={<ClientPage2 />} />
-					<Route path="/3" element={<AdminPage2 />} />
+					<Route path="/" element={<ClientPage2 />} />
+					<Route path="/admin" element={<AdminPage2 />} />
 				</Routes>
 			</Router>
 		</div>

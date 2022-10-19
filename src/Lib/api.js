@@ -304,6 +304,24 @@ const completeOrder = async ({ clientId, logId }) => {
         throw err;
     }
 };
+
+// 공지사항 수정
+const modifyNotice = async ({ message }) => {
+    try {
+        const res = await sendAPI({
+            url: `/admin/notice`,
+            method: 'put',
+            data: {
+                message
+            }
+        });
+
+        return res.data;
+    } catch (err) {
+        alert('modify notice error');
+        throw err;
+    }
+};
 /*************** ADMIN FINISH ***************/
 
 /*************** CLIENT START ***************/
@@ -390,6 +408,7 @@ export {
     deleteClient,
     getOrderList,
     completeOrder,
+    modifyNotice,
 
     // client
     getClientInfo,
