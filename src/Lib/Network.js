@@ -3,12 +3,10 @@ import { getStorage } from "Lib/Storage";
 
 const axios = Axios.create({
   // baseURL: `http://43.200.94.166:9000`,
-  baseURL: `https://port-0-holeserver-p8xrq2mlftjzauj.sel3.cloudtype.app`,
-
-  // baseURL: ``,
-  // headers: {
-  //     'Cache-Control': 'no-cache',
-  // },
+  baseURL: `http://43.201.180.159:9000`,
+  headers: {
+    "Cache-Control": "no-cache",
+  },
 });
 
 Axios.defaults.withCredentials = true;
